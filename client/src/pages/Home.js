@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./home.css"
 import Login from "../components/Login"
+import API from "../utils/API";
+
 
 function Home() {
   // if logged in, present join game buttons otherwise display login form
@@ -16,7 +18,13 @@ function Home() {
 
   function handleFormSubmit(event) {
     event.preventDefault();
-    console.log("BUTTON");
+    console.log("HANDLE FORM SUBMIT", formObject.email)
+      API.saveUser({
+        email: formObject.email,
+        password: formObject.password,
+      })
+        .then(res => console.log("RESPONSE", res))
+        .catch(err => console.log(err));
   };
 
   return (
