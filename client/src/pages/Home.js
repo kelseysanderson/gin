@@ -45,6 +45,11 @@ function Home() {
     }
   }
 
+  function handleLogout() {
+    console.log("here!")
+    cookies.remove('user')
+  }
+
   return (
    <div>
       {isLoggedIn() === true ? (
@@ -61,7 +66,7 @@ function Home() {
                   <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#">Logout</a>
+                  <button onClick={handleLogout} class="nav-link" href="#">Logout</button>
                 </li>
               </ul>
             </div>
@@ -70,7 +75,6 @@ function Home() {
         // render create game and join game buttons
         // list of current games
         // rules for gin
-
       ) : (
         <div> 
           <nav class="navbar navbar-expand-lg navbar-light bg-light">
