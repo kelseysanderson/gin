@@ -25,12 +25,24 @@ var GameSchema = new Schema({
         required: true,
         default: false
     },
+    displayActiveGames: {
+        type: Boolean,
+        default: false
+    },
+    canBeJoined: {
+        type: Boolean,
+        default: false
+    },
+    socketId: {
+        type: Number,
+    },
     currentState: {
         type: Schema.Types.ObjectId,
         required: true,
         default: null,
         ref: 'Game-State'
-    }
+    },
+  
     // boolean to determine whether to display active
     // booolean for open to play/can be joined.
     // display everything that is active, only render button if they are able to join
