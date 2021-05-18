@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import Login from "../components/Login"
 import Game from "./Game"
+import ActiveGames  from "../components/ActiveGames";
+import NavBar from "../components/Navbar";
+
 import API from "../utils/API";
 import Cookies from 'universal-cookie';
 import "./home.css"
@@ -51,13 +54,22 @@ function Home() {
     window.location.reload(false);
   }
 
+  function createGame(e){
+    e.preventDefault();
+    console.log("click");
+  }
+  function joinGame(e){
+    e.preventDefault();
+    console.log("clicked");
+  }
+
 
   return (
    <div>
       {isLoggedIn() === true ? (
         <div>
-        <nav className="navbar navbar-expand-lg navbar-light bg-light">
-            <a className="navbar-brand" href="#">Navbar</a>
+          <nav className="navbar navbar-expand-lg navbar-light bg-light">
+            <a className="navbar-brand" href="#">Play Gin Rummy</a>
             <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span className="navbar-toggler-icon"></span>
             </button>
@@ -73,14 +85,32 @@ function Home() {
               </ul>
             </div>
           </nav>
+          
+
+          <div className="col-4">
+          <ActiveGames>
+          </ActiveGames> 
+          </div>
+          <div className="col-6">
+          <button className="create-button" onClick={createGame}>
+            Create Game Room
+          </button>
+          <button className="join-button" onClick={joinGame}>
+            Join a Game
+          </button>
+          </div>
         </div>
+        
+      
+      
+        
         // render create game and join game buttons
         // list of current games
         // rules for gin
       ) : (
         <div> 
           <nav className="navbar navbar-expand-lg navbar-light bg-light">
-            <a className="navbar-brand" href="#">Navbar</a>
+            <a className="navbar-brand" href="#">Play Gin Rummy</a>
             <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span className="navbar-toggler-icon"></span>
             </button>
