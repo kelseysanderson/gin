@@ -5,7 +5,7 @@
   "proxy": "http://localhost:3001/",
   "dependencies": {
     "axios": "^0.18.0",
-    "bootstrap": "^4.6.0",
+    "bootstrap": "^5.0.1",
     "react": "^16.13.1",
     "react-bootstrap": "^1.6.0",
     "react-cookie": "^4.0.3",
@@ -13,6 +13,7 @@
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.3",
+    "socket.io-client": "^4.1.1",
     "universal-cookie-express": "^4.0.3"
   },
   "scripts": {
