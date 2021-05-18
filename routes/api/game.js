@@ -1,9 +1,9 @@
 const router = require("express").Router();
-const userController = require("../../controllers/userController");
+const gameController = require("../../controllers/gameController");
 
 router.route("/")
-  .get(userController.findAll)
-  .post(userController.create);
+  .get(gameController.findAll)
+  .post(gameController.create);
 
 // router.route("/:id")
 //   .get(userController.findById)

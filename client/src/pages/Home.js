@@ -1,30 +1,37 @@
 import React, { useState } from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
-import Login from "../components/Login"
-import Game from "./Game"
-import ActiveGames  from "../components/ActiveGames";
-import NavBar from "../components/Navbar";
-
+import Login from "../components/Login";
 import API from "../utils/API";
 import Cookies from 'universal-cookie';
 import "./home.css"
 
 function Home() {
-  // if logged in, present join game buttons otherwise display login form
-  // when join game button is pressed, display waiting for opponent pop up (how will we know when other player)
-  const [formObject, setFormObject] = useState({})
+  const [formObject, setFormObject] = useState({});
   const cookies = new Cookies();
 
   function handleInputChange(event) {
     const { name, value } = event.target;
     setFormObject({ ...formObject, [name]: value })
-    console.log(formObject)
   };
 
-  // if not logged in, redirect to login page 
-  // need login method and sign up method to save user info/loggedIn info to cookie
-  function handleSignUp(event) {
-    event.preventDefault();
+  function handleLoginSubmit(event) {
+    console.log("BUTTON")
+    event.preventDefault()
+    API.authLogin({
+      email: formObject.email,
+      password: formObject.password,
+    }).then(res => {
+      cookies.set('user',
+        JSON.stringify({
+          email: formObject.email,
+          id: res.data.user.savedUser._id,
+          isLoggedIn: true
+        }))
+        window.location.replace('/options/' + res.data.user.savedUser._id);
+    }).catch(err => console.log(err));
+  }
+
+  function handleSignupSubmit(event) {
+    event.preventDefault()
     API.saveUser({
       email: formObject.email,
       password: formObject.password,
@@ -32,85 +39,20 @@ function Home() {
       cookies.set('user',
         JSON.stringify({
           email: formObject.email,
-          id: res.data._id,
-
+          id: res.data.user.user._id,
           isLoggedIn: true
-        }), { path: '/' });
-    }).then(res => window.location.reload(false))
-      .catch(err => console.log(err));
+        }), )
+        window.location.replace('/options/' + res.data.user.user._id);
+        ;
+    }).catch(err => console.log(err));
   };
 
-  function isLoggedIn() {
-    if (!cookies.get('user')) {
-      return false;
-    } else if (cookies.get('user').isLoggedIn) {
-      return true
-    }
-  }
-
-  function handleLogout() {
-    console.log("here!")
-    cookies.remove('user')
-    window.location.reload(false);
-  }
-
-  function createGame(e){
-    e.preventDefault();
-    console.log("click");
-  }
-  function joinGame(e){
-    e.preventDefault();
-    console.log("clicked");
-  }
-
-
   return (
-   <div>
-      {isLoggedIn() === true ? (
+    <div>
+
         <div>
           <nav className="navbar navbar-expand-lg navbar-light bg-light">
-            <a className="navbar-brand" href="#">Play Gin Rummy</a>
-            <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-              <span className="navbar-toggler-icon"></span>
-            </button>
-  
-            <div className="collapse navbar-collapse" id="navbarSupportedContent">
-              <ul className="navbar-nav mr-auto">
-                <li className="nav-item active">
-                  <a className="nav-link" href="#">Home <span className="sr-only">(current)</span></a>
-                </li>
-                <li className="nav-item">
-                  <button onClick={handleLogout} className="nav-link" href="#">Logout</button>
-                </li>
-              </ul>
-            </div>
-          </nav>
-          
-
-          <div className="col-4">
-          <ActiveGames>
-          </ActiveGames> 
-          </div>
-          <div className="col-6">
-          <button className="create-button" onClick={createGame}>
-            Create Game Room
-          </button>
-          <button className="join-button" onClick={joinGame}>
-            Join a Game
-          </button>
-          </div>
-        </div>
-        
-      
-      
-        
-        // render create game and join game buttons
-        // list of current games
-        // rules for gin
-      ) : (
-        <div> 
-          <nav className="navbar navbar-expand-lg navbar-light bg-light">
-            <a className="navbar-brand" href="#">Play Gin Rummy</a>
+            <a className="navbar-brand" href="#">Gin Rummy </a>
             <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span className="navbar-toggler-icon"></span>
             </button>
@@ -125,12 +67,11 @@ function Home() {
             </div>
           </nav>
           <Login
-            handleSignUp={handleSignUp}
+            handleSignupSubmit={handleSignupSubmit}
             handleInputChange={handleInputChange}
+            handleLoginSubmit={handleLoginSubmit}
           />
         </div>
-      )
-    }
     </div>
   )
 }

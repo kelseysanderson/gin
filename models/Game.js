@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+
 // room
 var GameSchema = new Schema({
     // menu, reference to users, don't start until both users are not null
@@ -9,43 +10,38 @@ var GameSchema = new Schema({
         default: null,
         ref: 'User'
     },
+    playerOneName: {
+        type: String,
+        required: true,
+        default: null,
+        ref: 'User'
+    },
     playerTwo: {
         type: Schema.Types.ObjectId,
-        required: true,
         default: null,
         ref: 'User'
     },
     playerOneScore: {
         type: Number,
-        required: true,
-        default: false
+        required: false,
+        default: 0
     },
     playerTwoScore: {
         type: Number,
-        required: true,
-        default: false
+        required: false,
+        default: 0
     },
-    displayActiveGames: {
+    // socketId: {
+    //     type: Number,
+    // },
+    isActiveGame: {
         type: Boolean,
-        default: false
+        default: false,
     },
-    canBeJoined: {
+    needPlayerTwo: {
         type: Boolean,
-        default: false
-    },
-    socketId: {
-        type: Number,
-    },
-    currentState: {
-        type: Schema.Types.ObjectId,
-        required: true,
-        default: null,
-        ref: 'Game-State'
-    },
-  
-    // boolean to determine whether to display active
-    // booolean for open to play/can be joined.
-    // display everything that is active, only render button if they are able to join
+        default: false,
+    }
 });
 
 const Game = mongoose.model("Game", GameSchema);
