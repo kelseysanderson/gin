@@ -1,0 +1,43 @@
+.hand {
+  border: black 1px solid;
+  display: flex;
+  justify-content: center;
+}
+.playing-card {
+  width: 8%;
+  margin: 1%;
+  font-size: 1.3rem;
+  text-align: center;
+  border: black 1px solid;
+}
+.sort-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+.move-left {
+  width: 30%;
+  border-radius: 10px;
+}
+.move-right {
+  width: 30%;
+  border-radius: 10px;
+}
+.discard-btn {
+  font-size: .8rem;
+  border-radius: 10px;
+}
+.set-btns{
+  padding: 1%;
+}
+.set-btns button{
+  font-size: .7rem;
+}
+.set{
+  display: flex;
+}
+.back-to-hand {
+  width: 30%;
+  font-size: .5rem;
+}
+
+
