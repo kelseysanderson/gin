@@ -14,6 +14,12 @@ module.exports = {
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
+  findOneAndUpdate: function(req, res) {
+    db.Game
+      .findOneAndUpdate({_id: req.params.id} , req.body)
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+  },
   create: function (req, res) {
     db.Game
       .create(req.body)
