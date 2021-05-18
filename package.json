@@ -21,6 +21,8 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "bcrypt": "^5.0.1",
+    "bcryptjs": "^2.4.3",
     "bootstrap": "^5.0.1",
     "express": "^4.17.1",
     "if-env": "^1.0.4",

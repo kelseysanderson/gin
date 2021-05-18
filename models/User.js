@@ -12,10 +12,6 @@ var UserSchema = new Schema({
     unique: true,
     required: true
   },
-  // roomId: {
-  //   type: Number,
-  //   ref: 'Game',
-  // }
   // this could be used to show user history ()
   history: {
     type: [Schema.Types.ObjectId],
