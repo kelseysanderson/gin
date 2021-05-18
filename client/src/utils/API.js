@@ -27,11 +27,15 @@ export default {
   },
   // Gets the Game with the given id
   getGame: function (id) {
-    return axios.get("/api/users/" + id);
+    return axios.get("/api/game/" + id);
+  },
+  updateGame: function (id, gameData) {
+    console.log("HERE","/api/game/" + id )
+    return axios.put("/api/game/" + id, gameData);
   },
   // Deletes the Game with the given id
   deleteGame: function (id) {
-    return axios.delete("/api/users/" + id);
+    return axios.delete("/api/game/" + id);
   },
   // Saves a Game to the database
   saveGame: function (gameData) {

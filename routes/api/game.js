@@ -5,9 +5,9 @@ router.route("/")
   .get(gameController.findAll)
   .post(gameController.create);
 
-// router.route("/:id")
-//   .get(userController.findById)
-//   .put(userController.update)
-//   .delete(userController.remove);
+router.route("/:id")
+  .get(gameController.findById)
+  .put(gameController.findOneAndUpdate)
+  // .delete(userController.remove);
 
 module.exports = router;

@@ -15,16 +15,28 @@ function Options() {
   function loadGames() {
     API.getGames()
       .then(res =>
-        console.log(res.data)
-        // setGames(res.data)
+        setGames(res.data)
       )
       .catch(err => console.log(err));
   };
 
   function handleJoin(e) {
     console.log(e.target.value)
-    // API.getGame ({
-    // }) 
+    API.getGame(e.target.value)
+      .then(res => {
+
+        if (res.data.needPlayerTwo === false) {
+          return
+        } else {
+          console.log("IDDD", res.data._id)
+          API.updateGame(res.data._id, {
+            playerTwo: cookies.get('user').id,
+            needPlayerTwo: false
+          }).then(res =>
+            window.location.replace('/game/' + res.data._id)
+          )
+        }
+      })
   }
 
   function handleCreate() {
@@ -34,7 +46,8 @@ function Options() {
       isActiveGame: true,
       needPlayerTwo: true
     }).then(res =>
-      window.location.replace('/game/' + res.data._id))
+      window.location.replace('/game/' + res.data._id)
+    )
   };
 
   function handleLogout(event) {
@@ -69,7 +82,7 @@ function Options() {
               key={game._id}
               id={game._id}
               name={game.playerOneName}
-              handleJoin={ handleJoin}
+              handleJoin={handleJoin}
               needPlayerTwo={game.needPlayerTwo ? "true" : ""} />
           ))}
         </ul>
