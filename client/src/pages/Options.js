@@ -15,37 +15,37 @@ function Options() {
   function loadGames() {
     API.getGames()
       .then(res =>
-        setGames(res.data)
+        console.log(res.data)
+        // setGames(res.data)
       )
       .catch(err => console.log(err));
   };
 
-  function handleJoin() {
-    // console.log("JOIN")
+  function handleJoin(e) {
+    console.log(e.target.value)
     // API.getGame ({
     // }) 
   }
 
   function handleCreate() {
-    console.log(cookies.get('user'))
     API.saveGame({
       playerOne: cookies.get('user').id,
+      playerOneName: cookies.get('user').email,
       isActiveGame: true,
       needPlayerTwo: true
-    })
+    }).then(res =>
+      window.location.replace('/game/' + res.data._id))
   };
 
   function handleLogout(event) {
-    console.log(cookies.get('user').isLoggedIn)
     event.preventDefault();
-    console.log("BUTTON")
     cookies.remove('user')
-    window.location.replace('http://localhost:3000/home');
+    window.location.replace('/home');
   }
 
   return (
     <div>
-        <div>
+      <div>
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
           <a className="navbar-brand" href="#">Gin Rummy</a>
           <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -58,18 +58,22 @@ function Options() {
                 <a className="nav-link" href="#">Home <span className="sr-only">(current)</span></a>
               </li>
               <li className="nav-item">
-              <a className="nav-link" href="#"><button className="logout-button" onClick={handleLogout}  >Logout</button></a>
+                <a className="nav-link" href="#"><button className="logout-button" onClick={handleLogout}  >Logout</button></a>
               </li>
             </ul>
           </div>
         </nav>
         <ul>
           {games.map(game => (
-            <GamesList key={game._id} name={game.playerOne} isActiveGame={game.needPlayerTwo ? "true" : ""} />
+            <GamesList
+              key={game._id}
+              id={game._id}
+              name={game.playerOneName}
+              handleJoin={ handleJoin}
+              needPlayerTwo={game.needPlayerTwo ? "true" : ""} />
           ))}
         </ul>
         <button onClick={handleCreate}>create</button>
-        <button onClick={handleJoin}>join</button>
       </div>
     </div>
   )

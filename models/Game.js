@@ -10,6 +10,12 @@ var GameSchema = new Schema({
         default: null,
         ref: 'User'
     },
+    playerOneName: {
+        type: String,
+        required: true,
+        default: null,
+        ref: 'User'
+    },
     playerTwo: {
         type: Schema.Types.ObjectId,
         default: null,

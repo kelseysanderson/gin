@@ -1,10 +1,7 @@
 import React, { useState } from "react";
-import  { Redirect } from 'react-router-dom'
 import Login from "../components/Login";
 import API from "../utils/API";
 import Cookies from 'universal-cookie';
-
-
 import "./home.css"
 
 function Home() {
@@ -29,7 +26,7 @@ function Home() {
           id: res.data.user.savedUser._id,
           isLoggedIn: true
         }))
-        window.location.replace('http://localhost:3000/options/' + res.data.user.savedUser._id);
+        window.location.replace('/options/' + res.data.user.savedUser._id);
     }).catch(err => console.log(err));
   }
 
@@ -45,7 +42,7 @@ function Home() {
           id: res.data.user.user._id,
           isLoggedIn: true
         }), )
-        window.location.replace('http://localhost:3000/options/' + res.data.user.user._id);
+        window.location.replace('/options/' + res.data.user.user._id);
         ;
     }).catch(err => console.log(err));
   };

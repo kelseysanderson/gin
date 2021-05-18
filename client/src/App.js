@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Home from "./pages/Home";
 import Options from "./pages/Options";
+import Game from "./pages/Game.js"
 
 function App() {
   return (
@@ -13,6 +14,9 @@ function App() {
         </Route>
         <Route path="/options/:id">
           <Options />
+        </Route>
+        <Route path="/game">
+          <Game />
         </Route>
       </Switch>
     </div>

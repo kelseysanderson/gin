@@ -5,7 +5,9 @@ function GamesList(props) {
     // when join game button is pressed, display waiting for opponent pop up (how will we know when other player)
     return (
         <ul>
-            {props.isActiveGame === "true" ? <li>{props.name} </li> : ""}
+            <li>{props.name} {props.needPlayerTwo === "true" ?
+                <button value={props.id} onClick={props.handleJoin} >Join Game</button>
+                : ""} </li>
         </ul>
     )
 }
