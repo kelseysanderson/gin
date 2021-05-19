@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import io from "socket.io-client"
+import { useParams } from 'react-router-dom';
+import Cookies from 'universal-cookie';
+import API from "../utils/API";
 import "./Game.css"
 
-
-const socket = io("localhost:3002", { transports: ["websocket"] })
 
 //DECK BUILDER
 class Deck {
@@ -33,6 +34,27 @@ class Deck {
 
 //GAME FUNCTION
 function Game() {
+  const cookies = new Cookies();
+  const {id} = useParams()
+  const room_id = id
+
+  const socket = io("localhost:3002", { 
+    transports: ["websocket"],
+    query: {"param": room_id}
+  })
+
+  useEffect(() => {
+    API.getGame(room_id)
+    .then(res =>{
+      if (res.data.playerOne === cookies.get('user').id) {
+        setPlayerState(1)
+      } 
+      if (res.data.playerTwo === cookies.get('user').id) {
+        setPlayerState(2)
+      }
+    })
+  }, [])
+
   //GAME STATE
   const [gameState, setGameState] = useState({
     deck: [],
@@ -58,10 +80,12 @@ function Game() {
   })
 
   function updateState (newState) {
-    socket.emit('update_state', newState)
+    socket.emit('update_state', newState, room_id)
+    console.log('update_state' + room_id)
   }
 
-  socket.on('update_state', function(newState){
+  socket.once('update_state' + room_id, function(newState){
+    console.log(newState)
     setGameState(newState)
   })
 
@@ -72,10 +96,11 @@ function Game() {
   })
 
   function updatePlayerOne (newPlayerOne) {
-    socket.emit('update_playerOne', newPlayerOne)
+    socket.emit('update_playerOne', newPlayerOne, room_id)
   }
 
-  socket.on('update_playerOne', function(newPlayerOne){
+  socket.once('update_playerOne' + room_id, function(newPlayerOne){
+    console.log(newPlayerOne)
     setPlayerOne(newPlayerOne)
   })
 
@@ -86,12 +111,17 @@ function Game() {
   })
 
   function updatePlayerTwo (newPlayerTwo) {
-    socket.emit('update_playerTwo', newPlayerTwo)
+    socket.emit('update_playerTwo', newPlayerTwo, room_id)
   }
 
-  socket.on('update_playerTwo', function(newPlayerTwo){
+  socket.once('update_playerTwo' + room_id, function(newPlayerTwo){
+    console.log("updated Player 2")
     setPlayerTwo(newPlayerTwo)
   })
+
+  function onDisconnect() {
+
+  }
 
   //CURRENT PLAYER
   const [playerState, setPlayerState] = useState(1)
@@ -599,19 +629,19 @@ function Game() {
           ended: true
         }) 
       } else if (gameState.p2Score !== 0) {
-        if (dataScore - gameState.p2score < 0){
+        if (dataScore - gameState.p2Score < 0){
           updateState({...gameState,
-            finalResult: `PlayerOne Scored ${gameState.p2score - dataScore}`,
+            finalResult: `Player One Scored ${gameState.p2Score - dataScore}`,
             ended: true
           }) 
-        } else if (dataScore - gameState.p2score === 0) {
+        } else if (dataScore - gameState.p2Score === 0) {
           updateState({...gameState,
             finalResult: `No Points Scored`,
             ended: true
           }) 
         } else {
           updateState({...gameState,
-            finalResult: `PlayerTwo Scored ${dataScore - gameState.p2score}`,
+            finalResult: `Player Two Scored ${dataScore - gameState.p2score}`,
             ended: true
           }) 
         }
@@ -623,26 +653,39 @@ function Game() {
           ended: true
         }) 
       } else if (gameState.p1Score !== 0) {
-        if (dataScore - gameState.p1score < 0){
+        if (dataScore - gameState.p1Score < 0){
           updateState({...gameState,
             finalResult: `Player Two Scored ${gameState.p1score - dataScore}`,
             ended: true
           }) 
-        } else if (dataScore - gameState.p1score === 0) {
+        } else if (dataScore - gameState.p1Score === 0) {
           updateState({...gameState,
             finalResult: `No Points Scored`,
             ended: true
           }) 
         } else {
           updateState({...gameState,
-            finalResult: `Player One Scored ${dataScore - gameState.p1score}`,
+            finalResult: `Player One Scored ${dataScore - gameState.p1Score}`,
             ended: true
           }) 
         }
       }
     }
+  } 
 
+  function saveAndReturn() {
+    API.updateGame(room_id, {
+      score: gameState.finalResult,
+      isActiveGame: false
+    }).then(() =>
+      window.location.replace('/options/' + cookies.get('user').id)
+    )
   }
+
+  function returnHome() {
+    window.location.replace('/options/' + cookies.get('user').id)
+  }
+
   //DISPLAY
   return (
     <div className="container">
@@ -650,6 +693,8 @@ function Game() {
         <div>
           <h2>Game Over</h2>
           <p>{gameState.finalResult}</p>
+          {playerState === 1 ? (<button onClick={saveAndReturn}>Save Game and Return Home</button>) : (<button onClick={returnHome}>Return Home</button>) }
+          
         </div>
       ) : (
         <div>
