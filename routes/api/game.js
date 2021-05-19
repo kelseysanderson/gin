@@ -2,7 +2,7 @@ const router = require("express").Router();
 const gameController = require("../../controllers/gameController");
 
 router.route("/")
-  .get(gameController.findAll)
+  .get(gameController.find)
   .post(gameController.create);
 
 router.route("/:id")

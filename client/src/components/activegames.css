@@ -1,0 +1,11 @@
+td {
+    text-align:center
+}
+
+button#create-game-btn, #refresh-btn {
+    background-color:black;
+    color:white;
+    border-radius: 5px;
+    font-size: 20px;
+    margin: 10px;
+}

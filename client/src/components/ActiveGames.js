@@ -1,25 +1,16 @@
 import React from 'react';
-import Table from "react-bootstrap/Table";
+import { Table } from "react-bootstrap";
+import "./activegames.css"
 
-
-
-function ActiveGames() {
+function ActiveGames(props) {
   return (
-    <Table striped bordered hover variant="dark">
-      <thead>
-        <tr>
-          <th>Room #</th>
-          <th>Username</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>1</td>
-          <td>Mark</td>
-        </tr>
-      </tbody>
-    </Table>
-         
+    <tbody>
+      <tr>
+        <td>{props.name}</td>
+        <td>{props.needPlayerTwo === "true" ? <button value={props.id} onClick={props.handleJoin} >Join Game</button> : <p>In Game</p>}</td>
+      </tr>
+    </tbody>
+
   )
 }
 

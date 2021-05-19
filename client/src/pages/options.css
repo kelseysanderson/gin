@@ -1,0 +1,11 @@
+.options-text {
+    color:#e2e2e2 ;
+}
+
+.options {
+    min-height:100vh;
+    min-width: 100%;
+    background-image: url('./cards.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+}

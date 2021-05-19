@@ -12,7 +12,6 @@ var GameSchema = new Schema({
     },
     playerOneName: {
         type: String,
-        required: true,
         default: null,
         ref: 'User'
     },
@@ -21,16 +20,12 @@ var GameSchema = new Schema({
         default: null,
         ref: 'User'
     },
-    playerOneScore: {
-        type: Number,
+    Score: {
+        type: String,
         required: false,
         default: 0
     },
-    playerTwoScore: {
-        type: Number,
-        required: false,
-        default: 0
-    },
+
     // socketId: {
     //     type: Number,
     // },

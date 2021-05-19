@@ -6,6 +6,10 @@ import API from "../utils/API";
 import "./Game.css"
 
 
+const socket = io("localhost:3002", { transports: ["websocket"] })
+  // document.body.style.background = "white";
+
+
 //DECK BUILDER
 class Deck {
   constructor() {
