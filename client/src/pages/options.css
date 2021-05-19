@@ -3,8 +3,16 @@
     width: 100%;
     justify-content:space-between;
     flex-wrap: wrap;
-    border-bottom: 3px solid white;
-    margin-bottom: 50px;
+    margin-top: 50px;
+    margin-bottom: 100px;
+    padding-bottom: 30px;
+    font-size: 75px;
+    letter-spacing: 8px;
+    font-family: 'Trocchi' ;
+    font-weight:700;
+    color:#e2e2e2 ;
+    border-top: 3px solid #a8a0a0 ;
+    border-bottom: 3px solid #a8a0a0 ;
 }
 .options-text {
     color:#e2e2e2 ;
@@ -25,34 +33,33 @@
 .active-games {
     color: whitesmoke;
     text-align:center;
-    margin-top: 10px;
     font-size: 45px;
 }
 .logout-button {
-    padding-top:35px;
-    pointer-events: none;
+    padding-top:33px;
+    /* pointer-events: none; */
     padding-right: 50px;
 }
 .rules-text {
-    background-color: rgba(60, 60, 61, 0.95) !important;
+    background-color: rgba(14, 14, 23, 0.9) !important;
     color:white;
     padding:50px;
     font-size: 18px;
 }
 #create-game-btn{
     padding: 15px;
-    border: 4px dashed white;
-    background-color: rgba(127, 127, 127, 0.95) ;
-    color:white ;
+    border: 5px solid rgb(40, 5, 5);
+    background-color: rgb(68, 10, 10) ;
+    color:white;
     border-radius: 10px ;
     font-size: 30px;
     margin-bottom: 30px;
 }
 #create-game-btn:hover{
     padding: 15px;
-    border: 4px dashed whitesmoke;
-    background-color: rgba(205, 205, 205, 0.95) ;
-    color:black ;
+    border: 5px solid rgb(40, 5, 5);
+    background-color: whitesmoke ;
+    color:rgb(90, 16, 16) ;
     border-radius: 10px ;
     font-size: 30px;
     margin-bottom: 30px;
@@ -79,4 +86,29 @@
     border-bottom: 5px solid black;
     padding-top: 20px;
     padding-bottom: 30px;
+}
+td {
+    text-align:center;
+}
+.table-header-text {
+    text-align:center;
+    font-size: 20px;
+    padding:18px !important;
+}
+.join-game-btn {
+    padding: 5px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    border: 2px solid rgb(40, 5, 5);
+    background-color: rgb(68, 10, 10) ;
+    color:white;
+    border-radius: 10px ;
+}
+.join-game-btn:hover {
+    padding: 5px;
+    font-weight: bold;
+    border: 2px solid rgb(40, 5, 5);
+    background-color: whitesmoke ;
+    color:rgb(59, 11, 11) ;
+    border-radius: 10px ;
 }
