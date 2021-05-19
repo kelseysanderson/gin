@@ -32,7 +32,7 @@ function Login(props) {
                                         <input onChange={props.handleInputChange} name="password" type="password" className="form-control" placeholder="password" />
                                     </div>
                                     <div className="form-group">
-                                        <input onClick={props.handleFormSubmit} type="submit" value="Login" className="btn float-right login_btn" />
+                                        <input onClick={props.handleLoginSubmit} type="submit" value="Login" className="btn float-right login_btn" />
                                     </div>
                                 </form>
                             </div>
@@ -63,7 +63,7 @@ function Login(props) {
                                     <input type="password" onChange={props.handleInputChange} name="password" className="form-control" placeholder="password" />
                                 </div>
                                 <div className="form-group">
-                                    <input onClick={props.handleSignUp} type="submit" value="Login" className="btn float-right login_btn" />
+                                    <input onClick={props.handleSignupSubmit} type="submit" value="Sign up" className="btn float-right login_btn" />
                                 </div>
                             </form>
                         </div>

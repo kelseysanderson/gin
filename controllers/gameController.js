@@ -1,6 +1,5 @@
 const db = require("../models");
 
-// Defining methods for the booksController
 module.exports = {
   findAll: function (req, res) {
     db.Game
@@ -12,6 +11,12 @@ module.exports = {
   findById: function (req, res) {
     db.Game
       .findById(req.params.id)
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+  },
+  findOneAndUpdate: function(req, res) {
+    db.Game
+      .findOneAndUpdate({_id: req.params.id} , req.body)
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
