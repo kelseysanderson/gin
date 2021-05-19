@@ -1,27 +1,82 @@
+.options-header{
+    display:flex;
+    width: 100%;
+    justify-content:space-between;
+    flex-wrap: wrap;
+    border-bottom: 3px solid white;
+    margin-bottom: 50px;
+}
 .options-text {
     color:#e2e2e2 ;
 }
 .options {
     min-height:100vh;
     min-width: 100%;
+    overflow: auto;
     background-image: url('./cards.jpg');
     background-size: cover;
     background-repeat: no-repeat;
 }
-.options-header{
-    display:flex;
-    width: 100%;
-    justify-content:space-between;
-    flex-wrap: wrap;
-}
 .options-text {
     font-size: 50px;
-    padding: 50px;
+    padding-top: 40px;
+    padding-left: 50px;
 }
 .active-games {
     color: whitesmoke;
+    text-align:center;
+    margin-top: 10px;
+    font-size: 45px;
 }
 .logout-button {
-    padding:50px;
+    padding-top:35px;
     pointer-events: none;
+    padding-right: 50px;
+}
+.rules-text {
+    background-color: rgba(60, 60, 61, 0.95) !important;
+    color:white;
+    padding:50px;
+    font-size: 18px;
+}
+#create-game-btn{
+    padding: 15px;
+    border: 4px dashed white;
+    background-color: rgba(127, 127, 127, 0.95) ;
+    color:white ;
+    border-radius: 10px ;
+    font-size: 30px;
+    margin-bottom: 30px;
+}
+#create-game-btn:hover{
+    padding: 15px;
+    border: 4px dashed whitesmoke;
+    background-color: rgba(205, 205, 205, 0.95) ;
+    color:black ;
+    border-radius: 10px ;
+    font-size: 30px;
+    margin-bottom: 30px;
+}
+#refresh-btn {
+    padding: 10px;
+    background:none;
+    border:none;
+    color:white;
+    font-size: 33px;
+    width: 60px;
+    border-radius: 20px;
+    margin-left: 15px;
+    margin-bottom: 50px;
+}
+.rules-header {
+    text-align: center;
+    font-size: 35px;
+    padding-bottom: 20px;
+    width: 100%;
+}
+.how-to-play {
+    border-top: 5px solid black;
+    border-bottom: 5px solid black;
+    padding-top: 20px;
+    padding-bottom: 30px;
 }
