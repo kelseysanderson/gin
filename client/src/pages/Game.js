@@ -129,7 +129,7 @@ function Game() {
 
   //CURRENT PLAYER
   const [playerState, setPlayerState] = useState(1)
-
+// TESTING PLAYER SWITCH
   function switchPlayer() {
     if (playerState === 1){setPlayerState(2)}
     else {setPlayerState(1)}
@@ -694,20 +694,35 @@ function Game() {
   return (
     <div className="game-container">
       {gameState.ended ? (
-        <div>
+        <div className="game-content">
           <h2>Game Over</h2>
           <p>{gameState.finalResult}</p>
           {playerState === 1 ? (<button onClick={saveAndReturn}>Save Game and Return Home</button>) : (<button onClick={returnHome}>Return Home</button>) }
           
         </div>
       ) : (
-        <div>
+        <div className="game-content">
           <h2 className="current-player">Current Player: {playerState}</h2>
 
           {playerState === 1 && currentPlayer.hand.length < 10 ? (
             <button className="deal-cards" onClick={dealCards}>Deal</button>
           ): (<></>)}
+
+          <div className="current-state">
+            {gameState.p1Turn ? (<h3>Player One's Turn</h3>):(<></>)}
+
+            {gameState.p2Turn ? (<h3>Player Two's Turn</h3>):(<></>)}
+            
+            {gameState.p1HasKnock ? (<h3>Player One has Knocked</h3>):(<></>)}
+
+            {gameState.p2HasKnock ? (<h3>Player Two has Knocked</h3>):(<></>)}
+
+            {gameState.p1HasGin ? (<h3>Player One has Gin</h3>):(<></>)}
+
+            {gameState.p2HasGin ? (<h3>Player Two has Gin</h3>):(<></>)}
+          </div>
           
+          {/*TESTING SWITCH PLAYER BUTTON */}
           <button className="switch-player" onClick={switchPlayer}>Switch Player</button>
 
           {/* HAND */}
@@ -753,15 +768,16 @@ function Game() {
           
           {/* RENDERS SET DISPLAYS */}
           {currentPlayer.declaredKnock || currentPlayer.declaredGin || currentPlayer.knockedAgainst || currentPlayer.ginAgainst ? (
+            <div>
               <div className="sets">
                 {currentPlayer.sets.map((set, setIndex) => (
-                  <div>
+                  <div className="set">
                     {setIndex === 3 ? (
                       <h3>Unmatched</h3>
                     ) : (
                       <h3>Set {setIndex + 1}</h3>
                     )}
-                    <div className="set">
+                    <div className="set-cards">
                       {set.map((card, cardIndex) => (
                         <div className="playing-card-bg"> 
                         <div className="playing-card">
@@ -772,55 +788,64 @@ function Game() {
                             <button name={setIndex} value={cardIndex} onClick={setMoveLeft} className="sort-button">
                               {"<"}
                             </button>
-                            <button name={setIndex} value={cardIndex} onClick={backToHand} className="back-to-hand">
-                              back
-                            </button>
+                            
                             <button name={setIndex} value={cardIndex} onClick={setMoveRight} className="sort-button">
                               {">"}
                             </button>
                           </div>
+                            <button name={setIndex} value={cardIndex} onClick={backToHand} className="back-to-hand">
+                              back
+                            </button>
                         </div>
                         </div>
                       ))}
                     </div>
                   </div>
                 ))} 
-                <button onClick={currentPlayer.declaredGin || currentPlayer.declaredKnock ? (declaredSubmitSets) : (rebutleSubmitSets)}>submit Sets</button>
+                
               </div>
+              <button className="submit-sets" onClick={currentPlayer.declaredGin || currentPlayer.declaredKnock ? (declaredSubmitSets) : (rebutleSubmitSets)}>Submit Sets</button>
+            </div>
             ) : (
               <></>
             )  
           }  
 
           <br></br>
-          <div className="generic-left-padding">
-          <h3>TOP DISCARD CARD:</h3> 
-          {gameState.discard.length > 0 ? (
-            <div className="playing-card-bg"> 
-            <div className="playing-card">
-              <p>{gameState.discard[0].display}</p> 
-              <p>{gameState.discard[0].suit}</p>
-            </div>
-            </div>
+          <div>
+            <h3>TOP DISCARD CARD:</h3> 
+              {gameState.discard.length > 0 ? (
+                <div className="hand">
+                  <div className="playing-card-bg"> 
+                    <div className="playing-card">
+                      <p className="suit-number">{gameState.discard[0].display}</p> 
+                      <p className="suit-number">{gameState.discard[0].suit}</p>
+                    </div>
+                  </div>
+                </div>  
           ) : ( 
             <p>No Cards in Discard</p>
           )}
           </div>
           <br></br>
-          <div className="generic-left-padding">
+          <div>
           {currentPlayer.mustDiscard || !currentPlayer.turn  || currentPlayer.declaredGin  || currentPlayer.declaredKnock ? (
           <h3>Cannot Act</h3>
           ) : (
-          <div>
-            <button className="deck-draw" onClick={deckDraw}>Draw</button>
-            {gameState.discard.length > 0 ? (
-              <button className="deck-discard" onClick={drawDiscard}><span>Draw Discard</span></button>
-              ) : (
-              <p>Can't draw from Discard</p>
-            )}
-            <button onClick={declareKnock}>Knock</button>
-            <button onClick={declareGin}>Declare Gin</button>
-          </div>
+          <div>  
+            <div>
+              <button className="deck-draw" onClick={deckDraw}>Draw</button>
+              {gameState.discard.length > 0 ? (
+                <button className="deck-discard" onClick={drawDiscard}><span>Draw Discard</span></button>
+                ) : (
+                <p>Can't draw from Discard</p>
+              )}
+            </div>
+            <div className="set-btns">  
+              <button className="back-to-hand" onClick={declareKnock}>Knock</button>
+              <button className="back-to-hand" onClick={declareGin}>Declare Gin</button>
+            </div>
+          </div>  
           )}
           </div>
         </div>
