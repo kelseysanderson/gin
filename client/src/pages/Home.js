@@ -29,7 +29,7 @@ function Home() {
           id: res.data.user.savedUser._id,
           isLoggedIn: true
         }))
-        window.location.replace('/options/' + res.data.user.savedUser.user_id);
+        window.location.replace('/options/' + res.data.user.savedUser._id);
     }).catch(err => console.log(err));
   }
 
