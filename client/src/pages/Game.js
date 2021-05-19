@@ -1,5 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import io from "socket.io-client"
+import { useParams } from 'react-router-dom';
+import Cookies from 'universal-cookie';
+import API from "../utils/API";
 import "./Game.css"
 
 
@@ -35,6 +38,27 @@ class Deck {
 
 //GAME FUNCTION
 function Game() {
+  const cookies = new Cookies();
+  const {id} = useParams()
+  const room_id = id
+
+  const socket = io("localhost:3002", { 
+    transports: ["websocket"],
+    query: {"param": room_id}
+  })
+
+  useEffect(() => {
+    API.getGame(room_id)
+    .then(res =>{
+      if (res.data.playerOne === cookies.get('user').id) {
+        setPlayerState(1)
+      } 
+      if (res.data.playerTwo === cookies.get('user').id) {
+        setPlayerState(2)
+      }
+    })
+  }, [])
+
   //GAME STATE
   const [gameState, setGameState] = useState({
     deck: [],
@@ -60,10 +84,12 @@ function Game() {
   })
 
   function updateState (newState) {
-    socket.emit('update_state', newState)
+    socket.emit('update_state', newState, room_id)
+    console.log('update_state' + room_id)
   }
 
-  socket.on('update_state', function(newState){
+  socket.once('update_state' + room_id, function(newState){
+    console.log(newState)
     setGameState(newState)
   })
 
@@ -74,10 +100,11 @@ function Game() {
   })
 
   function updatePlayerOne (newPlayerOne) {
-    socket.emit('update_playerOne', newPlayerOne)
+    socket.emit('update_playerOne', newPlayerOne, room_id)
   }
 
-  socket.on('update_playerOne', function(newPlayerOne){
+  socket.once('update_playerOne' + room_id, function(newPlayerOne){
+    console.log(newPlayerOne)
     setPlayerOne(newPlayerOne)
   })
 
@@ -88,12 +115,17 @@ function Game() {
   })
 
   function updatePlayerTwo (newPlayerTwo) {
-    socket.emit('update_playerTwo', newPlayerTwo)
+    socket.emit('update_playerTwo', newPlayerTwo, room_id)
   }
 
-  socket.on('update_playerTwo', function(newPlayerTwo){
+  socket.once('update_playerTwo' + room_id, function(newPlayerTwo){
+    console.log("updated Player 2")
     setPlayerTwo(newPlayerTwo)
   })
+
+  function onDisconnect() {
+
+  }
 
   //CURRENT PLAYER
   const [playerState, setPlayerState] = useState(1)
@@ -601,19 +633,19 @@ function Game() {
           ended: true
         }) 
       } else if (gameState.p2Score !== 0) {
-        if (dataScore - gameState.p2score < 0){
+        if (dataScore - gameState.p2Score < 0){
           updateState({...gameState,
-            finalResult: `PlayerOne Scored ${gameState.p2score - dataScore}`,
+            finalResult: `Player One Scored ${gameState.p2Score - dataScore}`,
             ended: true
           }) 
-        } else if (dataScore - gameState.p2score === 0) {
+        } else if (dataScore - gameState.p2Score === 0) {
           updateState({...gameState,
             finalResult: `No Points Scored`,
             ended: true
           }) 
         } else {
           updateState({...gameState,
-            finalResult: `PlayerTwo Scored ${dataScore - gameState.p2score}`,
+            finalResult: `Player Two Scored ${dataScore - gameState.p2score}`,
             ended: true
           }) 
         }
@@ -625,57 +657,75 @@ function Game() {
           ended: true
         }) 
       } else if (gameState.p1Score !== 0) {
-        if (dataScore - gameState.p1score < 0){
+        if (dataScore - gameState.p1Score < 0){
           updateState({...gameState,
             finalResult: `Player Two Scored ${gameState.p1score - dataScore}`,
             ended: true
           }) 
-        } else if (dataScore - gameState.p1score === 0) {
+        } else if (dataScore - gameState.p1Score === 0) {
           updateState({...gameState,
             finalResult: `No Points Scored`,
             ended: true
           }) 
         } else {
           updateState({...gameState,
-            finalResult: `Player One Scored ${dataScore - gameState.p1score}`,
+            finalResult: `Player One Scored ${dataScore - gameState.p1Score}`,
             ended: true
           }) 
         }
       }
     }
+  } 
 
+  function saveAndReturn() {
+    API.updateGame(room_id, {
+      score: gameState.finalResult,
+      isActiveGame: false
+    }).then(() =>
+      window.location.replace('/options/' + cookies.get('user').id)
+    )
   }
+
+  function returnHome() {
+    window.location.replace('/options/' + cookies.get('user').id)
+  }
+
   //DISPLAY
   return (
-    <div className="container">
+    <div className="game-container">
       {gameState.ended ? (
         <div>
           <h2>Game Over</h2>
           <p>{gameState.finalResult}</p>
+          {playerState === 1 ? (<button onClick={saveAndReturn}>Save Game and Return Home</button>) : (<button onClick={returnHome}>Return Home</button>) }
+          
         </div>
       ) : (
         <div>
-          <h2>Current Player: {playerState}</h2>
+          <h2 className="current-player">Current Player: {playerState}</h2>
 
           {playerState === 1 && currentPlayer.hand.length < 10 ? (
-            <button onClick={dealCards}>Deal Cards</button>
+            <button className="deal-cards" onClick={dealCards}>Deal</button>
           ): (<></>)}
           
-          <button onClick={switchPlayer}>Switch Player</button>
+          <button className="switch-player" onClick={switchPlayer}>Switch Player</button>
 
           {/* HAND */}
-          <h1>Hand</h1>
-          <div className="hand">
+          
+          <div style={{marginTop:"10px"}} >
+            <h1 className="generic-left-padding">Hand</h1>
+            <div className="hand">
             {currentPlayer.hand.map((card, index) => (
+             <div className="playing-card-bg"> 
               <div className="playing-card">
-                <p>{card.display}</p>
-                <p> {card.suit}</p>
+                <p className="suit-number">{card.display}</p>
+                <p className="suit-number">{card.suit}</p>
                 <div className="sort-buttons">
-                  <button value={index} onClick={moveLeft} className="move-left">
-                    {"\u21E6"}
+                  <button value={index} onClick={moveLeft} className="sort-button">
+                    {"<"}
                   </button>
-                  <button value={index} onClick={moveRight} className="move-right">
-                    {"\u21E8"}
+                  <button value={index} onClick={moveRight} className="sort-button">
+                  {">"}
                   </button>
                 </div>
                 {/* RENDERD DISCARD BUTTON */}
@@ -696,7 +746,9 @@ function Game() {
                 <></>
                 )}
               </div>
+             </div> 
             ))}
+            </div>
           </div>
           
           {/* RENDERS SET DISPLAYS */}
@@ -711,21 +763,23 @@ function Game() {
                     )}
                     <div className="set">
                       {set.map((card, cardIndex) => (
+                        <div className="playing-card-bg"> 
                         <div className="playing-card">
-                          <p>{card.display}</p>
-                          <p> {card.suit}</p>
+                          <p className="suit-number">{card.display}</p>
+                          <p className="suit-number">{card.suit}</p>
 
                           <div className="sort-buttons">
-                            <button name={setIndex} value={cardIndex} onClick={setMoveLeft} className="move-left">
-                              {"\u21E6"}
+                            <button name={setIndex} value={cardIndex} onClick={setMoveLeft} className="sort-button">
+                              {"<"}
                             </button>
                             <button name={setIndex} value={cardIndex} onClick={backToHand} className="back-to-hand">
                               back
                             </button>
-                            <button name={setIndex} value={cardIndex} onClick={setMoveRight} className="move-right">
-                              {"\u21E8"}
+                            <button name={setIndex} value={cardIndex} onClick={setMoveRight} className="sort-button">
+                              {">"}
                             </button>
                           </div>
+                        </div>
                         </div>
                       ))}
                     </div>
@@ -739,24 +793,28 @@ function Game() {
           }  
 
           <br></br>
+          <div className="generic-left-padding">
           <h3>TOP DISCARD CARD:</h3> 
           {gameState.discard.length > 0 ? (
+            <div className="playing-card-bg"> 
             <div className="playing-card">
               <p>{gameState.discard[0].display}</p> 
               <p>{gameState.discard[0].suit}</p>
             </div>
+            </div>
           ) : ( 
             <p>No Cards in Discard</p>
           )}
+          </div>
           <br></br>
-
+          <div className="generic-left-padding">
           {currentPlayer.mustDiscard || !currentPlayer.turn  || currentPlayer.declaredGin  || currentPlayer.declaredKnock ? (
           <h3>Cannot Act</h3>
           ) : (
           <div>
-            <button onClick={deckDraw}>Draw from Deck</button>
+            <button className="deck-draw" onClick={deckDraw}>Draw</button>
             {gameState.discard.length > 0 ? (
-              <button onClick={drawDiscard}>Draw from Discard</button>
+              <button className="deck-discard" onClick={drawDiscard}><span>Draw Discard</span></button>
               ) : (
               <p>Can't draw from Discard</p>
             )}
@@ -764,6 +822,7 @@ function Game() {
             <button onClick={declareGin}>Declare Gin</button>
           </div>
           )}
+          </div>
         </div>
       )}
     </div>
