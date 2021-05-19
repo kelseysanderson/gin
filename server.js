@@ -25,25 +25,27 @@ app.listen(PORT, function () {
 });
 
 
-
-//Socket
+//Gypsy Sockets
 io.on("connection", function(socket){
   console.log('made socket connection')
 
-  socket.on("update_state", function(newState) {
-    console.log(newState)
-    io.sockets.emit("update_state", newState)
+  socket.on("update_state", function(newState, room_id) {
+    console.log('update_state' + room_id)
+    io.sockets.emit('update_state' + room_id, newState)
   })
 
-  socket.on("update_playerOne", function(newPlayerOne) {
-    console.log(newPlayerOne)
-    io.sockets.emit("update_playerOne", newPlayerOne)
+  socket.on("update_playerOne", function(newPlayerOne, room_id) {
+    io.sockets.emit('update_playerOne' + room_id, newPlayerOne)
   })
 
-  socket.on("update_playerTwo", function(newPlayerTwo) {
-    console.log(newPlayerTwo)
-    io.sockets.emit("update_playerTwo", newPlayerTwo)
+  socket.on("update_playerTwo", function(newPlayerTwo, room_id) {
+    io.sockets.emit("update_playerTwo" + room_id, newPlayerTwo)
   })
+
+  socket.on("disconnect" , function() {
+    console.log("disconnected")
+  })
+
 })
 
 server.listen(PORT + 1, function() {
