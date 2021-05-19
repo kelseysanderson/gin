@@ -70,16 +70,17 @@ function Options() {
   return (
     <div className="options">
       <div>
+        <header className="options-header">
       <h1 className="options-text">Welcome, {username} </h1>
       <a className="nav-link" href="#"><button className="logout-button" onClick={handleLogout}  >Logout</button></a>
-     
+      </header>
         <div className="container">
           <div className="row justify-content-around">
             <div className="col-4">
               <button id="create-game-btn" onClick={handleCreate}>+ Create New Game</button>
             </div>
             <div className="col-7">
-              <h2>Active Games<button id="refresh-btn" onClick={handleRefresh}>&#10227;</button>
+              <h2 ClassName="active-games">Active Games<button id="refresh-btn" onClick={handleRefresh}>&#10227;</button>
               </h2>
               <Table striped bordered hover variant="dark">
                 <thead>

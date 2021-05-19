@@ -1,11 +1,27 @@
 .options-text {
     color:#e2e2e2 ;
 }
-
 .options {
     min-height:100vh;
     min-width: 100%;
     background-image: url('./cards.jpg');
     background-size: cover;
     background-repeat: no-repeat;
+}
+.options-header{
+    display:flex;
+    width: 100%;
+    justify-content:space-between;
+    flex-wrap: wrap;
+}
+.options-text {
+    font-size: 50px;
+    padding: 50px;
+}
+.active-games {
+    color: whitesmoke;
+}
+.logout-button {
+    padding:50px;
+    pointer-events: none;
 }
