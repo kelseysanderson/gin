@@ -26,7 +26,7 @@ function Home() {
           id: res.data.user.savedUser._id,
           isLoggedIn: true
         }))
-        window.location.replace('/options/' + res.data.user.savedUser._id);
+        window.location.replace('/options/' + res.data.user.savedUser.user_id);
     }).catch(err => console.log(err));
   }
 
@@ -35,8 +35,8 @@ function Home() {
     API.saveUser({
       email: formObject.email,
       password: formObject.password,
-    }).then(res => {
-      cookies.set('user',
+    }).then(res => 
+      { cookies.set('user',
         JSON.stringify({
           email: formObject.email,
           id: res.data.user.user._id,
@@ -48,30 +48,15 @@ function Home() {
   };
 
   return (
-    <div>
-
-        <div>
-          <nav className="navbar navbar-expand-lg navbar-light bg-light">
-            <a className="navbar-brand" href="#">Gin Rummy </a>
-            <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-              <span className="navbar-toggler-icon"></span>
-            </button>
-
-            <div className="collapse navbar-collapse" id="navbarSupportedContent">
-              <ul className="navbar-nav mr-auto">
-                <li className="nav-item active">
-                  <a className="nav-link" href="#">Home <span className="sr-only">(current)</span></a>
-                </li>
-
-              </ul>
-            </div>
-          </nav>
+    <div className="home">
+      <div>
+          <h1 className="header-text">GIN</h1>
+        </div>
           <Login
             handleSignupSubmit={handleSignupSubmit}
             handleInputChange={handleInputChange}
             handleLoginSubmit={handleLoginSubmit}
           />
-        </div>
     </div>
   )
 }

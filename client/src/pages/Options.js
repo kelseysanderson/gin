@@ -1,19 +1,25 @@
 import React, { useState, useEffect } from "react";
-import { Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { Table } from "react-bootstrap";
 import API from "../utils/API";
-import GamesList from "../components/GamesList"
+import ActiveGames from "../components/ActiveGames"
 import Cookies from 'universal-cookie';
+import './options.css'
 
 function Options() {
   const [games, setGames] = useState([]);
   const cookies = new Cookies();
+  const username = cookies.get('user').email;
+  // const username = name.match(/^([^@]*)@/)[1];
+  // const username = regexUsername.charAt(0).toUpperCase() + regexUsername.slice(1);
+  // document.body.style.background = "red";
 
   useEffect(() => {
     loadGames()
   }, [])
 
   function loadGames() {
-    API.getGames()
+    API.getActiveGames()
       .then(res =>
         setGames(res.data)
       )
@@ -24,11 +30,10 @@ function Options() {
     console.log(e.target.value)
     API.getGame(e.target.value)
       .then(res => {
-
         if (res.data.needPlayerTwo === false) {
           return
         } else {
-          console.log("IDDD", res.data._id)
+          console.log("HEReE" ,res.data)
           API.updateGame(res.data._id, {
             playerTwo: cookies.get('user').id,
             needPlayerTwo: false
@@ -50,6 +55,12 @@ function Options() {
     )
   };
 
+
+  function handleRefresh(event) {
+    event.preventDefault();
+    window.location.reload()
+  }
+
   function handleLogout(event) {
     event.preventDefault();
     cookies.remove('user')
@@ -57,36 +68,40 @@ function Options() {
   }
 
   return (
-    <div>
+    <div className="options">
       <div>
-        <nav className="navbar navbar-expand-lg navbar-light bg-light">
-          <a className="navbar-brand" href="#">Gin Rummy</a>
-          <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span className="navbar-toggler-icon"></span>
-          </button>
+      <h1 className="options-text">Welcome, {username} </h1>
+      <a className="nav-link" href="#"><button className="logout-button" onClick={handleLogout}  >Logout</button></a>
+     
+        <div className="container">
+          <div className="row justify-content-around">
+            <div className="col-4">
+              <button id="create-game-btn" onClick={handleCreate}>+ Create New Game</button>
+            </div>
+            <div className="col-7">
+              <h2>Active Games<button id="refresh-btn" onClick={handleRefresh}>&#10227;</button>
+              </h2>
+              <Table striped bordered hover variant="dark">
+                <thead>
+                  <tr>
+                    <th>Player</th>
+                    <th>Join</th>
+                  </tr>
+                </thead>
 
-          <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul className="navbar-nav mr-auto">
-              <li className="nav-item active">
-                <a className="nav-link" href="#">Home <span className="sr-only">(current)</span></a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="#"><button className="logout-button" onClick={handleLogout}  >Logout</button></a>
-              </li>
-            </ul>
+                {games.map(game => (
+                  <ActiveGames
+                    key={game._id}
+                    id={game._id}
+                    name={game.playerOneName}
+                    handleJoin={handleJoin}
+                    needPlayerTwo={game.needPlayerTwo ? "true" : ""}
+                  />
+                ))}
+              </Table>
+            </div>
           </div>
-        </nav>
-        <ul>
-          {games.map(game => (
-            <GamesList
-              key={game._id}
-              id={game._id}
-              name={game.playerOneName}
-              handleJoin={handleJoin}
-              needPlayerTwo={game.needPlayerTwo ? "true" : ""} />
-          ))}
-        </ul>
-        <button onClick={handleCreate}>create</button>
+        </div>
       </div>
     </div>
   )

@@ -25,12 +25,16 @@ export default {
   getGames: function () {
     return axios.get("/api/game");
   },
+  // Gets all Games
+  getActiveGames: function () {
+    return axios.get("/api/game");
+  },
   // Gets the Game with the given id
   getGame: function (id) {
     return axios.get("/api/game/" + id);
   },
   updateGame: function (id, gameData) {
-    console.log("HERE","/api/game/" + id )
+    // console.log("HERE","/api/game/" + id )
     return axios.put("/api/game/" + id, gameData);
   },
   // Deletes the Game with the given id

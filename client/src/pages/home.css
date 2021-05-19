@@ -1,24 +1,37 @@
-@import url('https://fonts.googleapis.com/css?family=Numans');
+@import url('https://fonts.googleapis.com/css2?family=Trocchi&display=swap');
+.header-text{
+    margin-top: 50px;
+    text-align:center;
+    padding: 20px;
+    font-size: 75px;
+    letter-spacing: 8px;
+    font-family: 'Trocchi' ;
+    font-weight:700;
+    color:#e2e2e2 ;
+    border-top: 3px solid #a8a0a0 ;
+    border-bottom: 3px solid #a8a0a0 ;
+}
 
-nav.navbar {
-    /* background-image: url('https://images.unsplash.com/photo-1541278107931-e006523892df?ixid=MnwxMjA3fDB8MHxzZWFy[…]fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'); */
+#play-now-text{
+    text-align:center;
+    color: #e2e2e2 !important;
+    margin-top: 40px;
+    margin-bottom:25px;
+    font-family:'Trocchi';
+    font-size: 55px;
+
+}
+
+.home {
+    overflow: auto;
+    min-height:100vh;
+    min-width: 100%;
+    background-image: url('./cards.jpg');
     background-size: cover;
     background-repeat: no-repeat;
-    height: 300px;
-    background-color: rgb(28, 28, 29) !important;
 }
 
-a.navbar-brand {
-    font-size: 70px;
-    color: white !important;
-}
-
-a.nav-link {
-    font-size:45px;
-    color: white !important;
-}
-
-button.logout-button {
+.logout-button {
     background:none;
     border:none;
     margin:0;
@@ -29,7 +42,7 @@ button.logout-button {
     font-weight: bold;
 }
 
-button.logout-button:hover {
+.logout-button:hover {
     background:none;
     border:none;
     margin:0;
@@ -40,17 +53,40 @@ button.logout-button:hover {
     font-weight: bold;
 }
 
-.container{
-    height: 100%;
-    align-content: center;
+.login-header {
+    height: 100px;
 }
 
-.card{
-    height: 370px;
+#sign-in-text {
+    margin-top: 25px;
+}
+
+.login-body {
+    display: flex ;
+    justify-content: center ;
+}
+
+.form-control {
+    margin-top:10px;
+    height:50px;
+    width: 300px !important;
+}
+
+.form-group {
+    display:flex ;
+    justify-content:center ;
+}
+
+.container {
+    height: 75vh;
+}
+
+.login-card{
+    height: 400px;
     margin-top: auto;
-    margin-bottom: auto;
+    margin-bottom: 50px;
     width: 400px;
-    background-color: rgba(0,0,0,0.75) !important;
+    background-color: rgba(60, 60, 61, 0.85) !important;
 }
 
 .social_icon span{
@@ -59,6 +95,19 @@ button.logout-button:hover {
     color: #FFC312;
 }
 
-h1, h3, div.links {
+.white-text {
     color:white;
+}
+
+.login_btn{
+    color: black;
+    font-weight:bold !important;
+    background-color: #ffffff !important;
+    width: 100px;
+    margin-top: 20px; 
+}
+    
+.login_btn:hover{
+color: black;
+background-color: white;
 }
