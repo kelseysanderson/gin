@@ -645,7 +645,7 @@ function Game() {
   }
   //DISPLAY
   return (
-    <div className="container">
+    <div className="game-container">
       {gameState.ended ? (
         <div>
           <h2>Game Over</h2>
@@ -653,27 +653,30 @@ function Game() {
         </div>
       ) : (
         <div>
-          <h2>Current Player: {playerState}</h2>
+          <h2 className="current-player">Current Player: {playerState}</h2>
 
           {playerState === 1 && currentPlayer.hand.length < 10 ? (
-            <button onClick={dealCards}>Deal Cards</button>
+            <button className="deal-cards" onClick={dealCards}>Deal</button>
           ): (<></>)}
           
-          <button onClick={switchPlayer}>Switch Player</button>
+          <button className="switch-player" onClick={switchPlayer}>Switch Player</button>
 
           {/* HAND */}
-          <h1>Hand</h1>
-          <div className="hand">
+          
+          <div style={{marginTop:"10px"}} >
+            <h1 className="generic-left-padding">Hand</h1>
+            <div className="hand">
             {currentPlayer.hand.map((card, index) => (
+             <div className="playing-card-bg"> 
               <div className="playing-card">
-                <p>{card.display}</p>
-                <p> {card.suit}</p>
+                <p className="suit-number">{card.display}</p>
+                <p className="suit-number">{card.suit}</p>
                 <div className="sort-buttons">
-                  <button value={index} onClick={moveLeft} className="move-left">
-                    {"\u21E6"}
+                  <button value={index} onClick={moveLeft} className="sort-button">
+                    {"<"}
                   </button>
-                  <button value={index} onClick={moveRight} className="move-right">
-                    {"\u21E8"}
+                  <button value={index} onClick={moveRight} className="sort-button">
+                  {">"}
                   </button>
                 </div>
                 {/* RENDERD DISCARD BUTTON */}
@@ -694,7 +697,9 @@ function Game() {
                 <></>
                 )}
               </div>
+             </div> 
             ))}
+            </div>
           </div>
           
           {/* RENDERS SET DISPLAYS */}
@@ -709,21 +714,23 @@ function Game() {
                     )}
                     <div className="set">
                       {set.map((card, cardIndex) => (
+                        <div className="playing-card-bg"> 
                         <div className="playing-card">
-                          <p>{card.display}</p>
-                          <p> {card.suit}</p>
+                          <p className="suit-number">{card.display}</p>
+                          <p className="suit-number">{card.suit}</p>
 
                           <div className="sort-buttons">
-                            <button name={setIndex} value={cardIndex} onClick={setMoveLeft} className="move-left">
-                              {"\u21E6"}
+                            <button name={setIndex} value={cardIndex} onClick={setMoveLeft} className="sort-button">
+                              {"<"}
                             </button>
                             <button name={setIndex} value={cardIndex} onClick={backToHand} className="back-to-hand">
                               back
                             </button>
-                            <button name={setIndex} value={cardIndex} onClick={setMoveRight} className="move-right">
-                              {"\u21E8"}
+                            <button name={setIndex} value={cardIndex} onClick={setMoveRight} className="sort-button">
+                              {">"}
                             </button>
                           </div>
+                        </div>
                         </div>
                       ))}
                     </div>
@@ -737,24 +744,28 @@ function Game() {
           }  
 
           <br></br>
+          <div className="generic-left-padding">
           <h3>TOP DISCARD CARD:</h3> 
           {gameState.discard.length > 0 ? (
+            <div className="playing-card-bg"> 
             <div className="playing-card">
               <p>{gameState.discard[0].display}</p> 
               <p>{gameState.discard[0].suit}</p>
             </div>
+            </div>
           ) : ( 
             <p>No Cards in Discard</p>
           )}
+          </div>
           <br></br>
-
+          <div className="generic-left-padding">
           {currentPlayer.mustDiscard || !currentPlayer.turn  || currentPlayer.declaredGin  || currentPlayer.declaredKnock ? (
           <h3>Cannot Act</h3>
           ) : (
           <div>
-            <button onClick={deckDraw}>Draw from Deck</button>
+            <button className="deck-draw" onClick={deckDraw}>Draw</button>
             {gameState.discard.length > 0 ? (
-              <button onClick={drawDiscard}>Draw from Discard</button>
+              <button className="deck-discard" onClick={drawDiscard}><span>Draw Discard</span></button>
               ) : (
               <p>Can't draw from Discard</p>
             )}
@@ -762,6 +773,7 @@ function Game() {
             <button onClick={declareGin}>Declare Gin</button>
           </div>
           )}
+          </div>
         </div>
       )}
     </div>

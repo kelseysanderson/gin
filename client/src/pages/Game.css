@@ -1,43 +1,213 @@
-.hand {
-  border: black 1px solid;
-  display: flex;
-  justify-content: center;
+.game-container {
+    background-color: green;
+    padding: 0;
+    height: 100vh;
+    width: 100vw;
 }
-.playing-card {
-  width: 8%;
-  margin: 1%;
-  font-size: 1.3rem;
-  text-align: center;
-  border: black 1px solid;
+
+.current-player {
+    background-color: black;
+    text-align: center;
+    font-family: Verdana;
+    font-variant: small-caps;
+    letter-spacing: 5px;
+    color: #adff2f;
+    font-weight: bolder;
 }
-.sort-buttons {
-  display: flex;
-  justify-content: space-between;
+
+.deal-cards {
+    box-shadow: 3px 4px 3px 0px #899599;
+    background: linear-gradient(to bottom, #ededed 5%, #bab1ba 100%);
+    background-color: #ededed;
+    border-radius: 42px;
+    border: 7px solid #0a090a;
+    display: inline-block;
+    cursor: pointer;
+    color: #eb0c2a;
+    font-family: Impact;
+    font-size: 17px;
+    padding: 23px 19px;
+    text-decoration: none;
+    text-shadow: 0px 2px 0px #e1e2ed;
 }
-.move-left {
-  width: 30%;
-  border-radius: 10px;
+
+.deal-cards:hover {
+    background: linear-gradient(to bottom, #bab1ba 5%, #ededed 100%);
+    background-color: #bab1ba;
 }
-.move-right {
-  width: 30%;
-  border-radius: 10px;
+
+.deal-cards:active {
+    position: relative;
+    top: 1px;
 }
+
+.generic-left-padding {
+    margin-left: 14px;
+}
+
+.switch-player {
+    box-shadow: 3px 4px 3px 0px #b4e6a6;
+    background: linear-gradient(to bottom, #44c767 5%, #5cbf2a 100%);
+    background-color: #44c767;
+    border-radius: 42px;
+    border: 7px solid #2b7032;
+    display: inline-block;
+    cursor: pointer;
+    color: #ffffff;
+    font-family: Impact;
+    font-size: 17px;
+    padding: 23px 19px;
+    text-decoration: none;
+    text-shadow: 0px 2px 0px #2f6627;
+}
+
+.switch-player:hover {
+    background: linear-gradient(to bottom, #5cbf2a 5%, #44c767 100%);
+    background-color: #5cbf2a;
+}
+
+.switch-player:active {
+    position: relative;
+    top: 1px;
+}
+
+.deck-draw {
+    height:140px;
+    width:152px;
+    margin:10px;
+    box-shadow: 3px 8px 0px 0px #e8c0be;
+    background-color: #eb564c;
+    border-radius: 15px;
+    border: 11px solid #ffffff;
+    display: inline-block;
+    cursor: pointer;
+    color: #ffffff;
+    font-family: Impact;
+    font-size: 18px;
+    padding: 32px 11px;
+    text-decoration: none;
+    text-shadow: 0px 1px 0px #b23e35;
+}
+
+.deck-draw:hover {
+    background-color: #eb675e;
+}
+
+.deck-draw:active {
+    position: relative;
+    top: 1px;
+}
+
+.deck-discard {
+    height:140px;
+    width:152px;
+    margin:10px;
+    text-align: center;
+    box-shadow: 3px 8px 0px 0px #bde0ff;
+    background-color: #0e63b8;
+    border-radius: 15px;
+    border: 11px solid #ffffff;
+    display: inline-block;
+    cursor: pointer;
+    color: #ffffff;
+    font-family: Impact;
+    font-size: 18px;
+    padding: 32px 16px;
+    text-decoration: none;
+    text-shadow: 0px 1px 0px #528ecc;
+}
+
+.deck-discard:hover {
+    background-color: #378de5;
+}
+
+.deck-discard:active {
+    position: relative;
+    top: 1px;
+}
+
+.sort-button:hover {
+    background-color: rgb(243, 243, 243);
+    color: black;
+}
+
+.sort-button {
+    margin: 3px;
+    border-radius: 50%;
+    background-color: #cacaca;
+    color: black;
+}
+.suit-number {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.discard-btn:hover {
+    background-color: rgb(243, 243, 243);
+    color: black;
+}
+
 .discard-btn {
-  font-size: .8rem;
-  border-radius: 10px;
+    font-size: 1rem;
+    margin: 6px;
+    border-radius: 15%;
+    background-color: #cacaca;
+    color: black;
 }
-.set-btns{
-  padding: 1%;
+
+.hand {
+    background-color: green;
+    display: flex;
+    justify-content: center;
 }
-.set-btns button{
-  font-size: .7rem;
+
+.playing-card-bg {
+    display: flex;
+    align-items: center;
+    padding: 3px;
+    border-radius: 10px;
+    background-color: #f35252;
+    width: 8%;
+    margin: 1%;
+    font-size: 1.3rem;
+    text-align: center;
+    border: black 1px solid;
 }
-.set{
-  display: flex;
+
+.playing-card>p {
+    color: black;
 }
+
+.playing-card {
+    color: black;
+    border-radius: 10px;
+    background-color: ivory;
+    width: 100%;
+    margin: 1%;
+    font-size: 1.3rem;
+    text-align: center;
+    border: black 1px solid;
+}
+
+.sort-buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.set-btns {
+    padding: 1%;
+}
+
+.set-btns button {
+    font-size: .7rem;
+}
+
+.set {
+    display: flex;
+}
+
 .back-to-hand {
-  width: 30%;
-  font-size: .5rem;
+    width: 30%;
+    font-size: .5rem;
 }
-
-

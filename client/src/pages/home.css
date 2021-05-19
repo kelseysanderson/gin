@@ -25,6 +25,9 @@ div.jumbotron {
     color: #FFC312;
 }
 
-h1, h3, div.links {
+h1, h3 {
     color:white;
+}
+div.links, p {
+    color:white
 }

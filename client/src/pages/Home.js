@@ -3,8 +3,6 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import Login from "../components/Login"
 import Game from "./Game"
 import ActiveGames  from "../components/ActiveGames";
-import NavBar from "../components/Navbar";
-
 import API from "../utils/API";
 import Cookies from 'universal-cookie';
 import "./home.css"
