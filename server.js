@@ -53,6 +53,6 @@ io.on("connection", function(socket){
 
 })
 
-server.listen(PORT + 1, function() {
-  console.log(`🌎  ==> Socket Server now listening on PORT ${PORT + 1}`)
+server.listen(PORT, function() {
+  console.log(`🌎  ==> Socket Server now listening on PORT ${PORT}`)
 })
