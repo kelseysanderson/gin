@@ -70,7 +70,7 @@ function Game() {
     p1Turn: false,
     p1MustDiscard: false,
     p1DeclaredGin: false,
-    p1DecalerdKnock: false,
+    p1DecalaredKnock: false,
     p1HasKnock: false,
     p1HasGin: false,
     p1Score: 0,
@@ -78,7 +78,7 @@ function Game() {
     p2Turn: false,
     p2MustDiscard: false,
     p2DeclaredGin: false,
-    p2DecalerdKnock: false,
+    p2DecalaerdKnock: false,
     p2HasKnock: false,
     p2HasGin: false,
     p2Score: 0
@@ -92,7 +92,7 @@ function Game() {
   socket.on('update_state' + room_id, function(newState){
     console.log(newState)
     setGameState(newState)
-    socket.off('update_state' + room_id)
+    // socket.off('update_state' + room_id)
   })
 
   //PLAYER ONE CARDS STATE
@@ -108,7 +108,7 @@ function Game() {
   socket.on('update_playerOne' + room_id, function(newPlayerOne){
     console.log(newPlayerOne)
     setPlayerOne(newPlayerOne)
-    socket.off('update_playerOne' + room_id)
+    // socket.off('update_playerOne' + room_id)
   })
 
   //PLAYER TWO CARDS STATE
@@ -124,16 +124,13 @@ function Game() {
   socket.on('update_playerTwo' + room_id, function(newPlayerTwo){
     console.log("updated Player 2")
     setPlayerTwo(newPlayerTwo)
-    socket.off('update_playerTwo' + room_id)
+    // socket.off('update_playerTwo' + room_id)
   })
 
-  function onDisconnect() {
-
-  }
 
   //CURRENT PLAYER
   const [playerState, setPlayerState] = useState(1)
-// TESTING PLAYER SWITCH
+  // TESTING PLAYER SWITCH
   function switchPlayer() {
     if (playerState === 1){setPlayerState(2)}
     else {setPlayerState(1)}
@@ -266,7 +263,6 @@ function Game() {
     if (playerState === 1) {
       updateState({...gameState,
         discard: gameState.discard,
-        p1Hand: currentPlayer.hand,  
         p1MustDiscard: true, 
       })  
       updatePlayerOne({...playerOne,
@@ -307,7 +303,7 @@ function Game() {
 
   function moveRight (event) {
     let index = parseInt(event.target.value)
-    let cardMove= currentPlayer.hand.splice(index, 1)[0]
+    let cardMove = currentPlayer.hand.splice(index, 1)[0]
 
     if(index === currentPlayer.hand.length) {
       currentPlayer.hand.unshift(cardMove)
@@ -427,7 +423,7 @@ function Game() {
   function moveToSet (event) {
     let index = parseInt(event.target.value)
     let setIndex = parseInt(event.target.name)
-    let cardMove= currentPlayer.hand.splice(index, 1)[0]
+    let cardMove = currentPlayer.hand.splice(index, 1)[0]
     currentPlayer.sets[setIndex].push(cardMove)
 
     if (playerState === 1) {
@@ -655,8 +651,8 @@ function Game() {
           }) 
         } else {
           updateState({...gameState,
-            finalResult: `Player Two Scored ${dataScore - gameState.p2score}`,
-            finalScore: dataScore - gameState.p2score,
+            finalResult: `Player Two Scored ${dataScore - gameState.p2Score}`,
+            finalScore: dataScore - gameState.p2Score,
             winner: playerTwoId,
             ended: true
           }) 
@@ -673,9 +669,10 @@ function Game() {
       } else if (gameState.p1Score !== 0) {
         if (dataScore - gameState.p1Score < 0){
           updateState({...gameState,
-            finalResult: `Player Two Scored ${gameState.p1score - dataScore}`,
-            finalScore: gameState.p1score - dataScore,
+            finalResult: `Player Two Scored ${gameState.p1Score - dataScore}`,
+            finalScore: gameState.p1Score - dataScore,
             winner: playerTwoId,
+
             ended: true
           }) 
         } else if (dataScore - gameState.p1Score === 0) {
@@ -878,7 +875,7 @@ function Game() {
           </div>
           <br></br>
           <div>
-          {currentPlayer.mustDiscard || !currentPlayer.turn  || currentPlayer.declaredGin  || currentPlayer.declaredKnock ? (
+          {currentPlayer.mustDiscard || !currentPlayer.turn  || currentPlayer.declaredGin  || currentPlayer.declaredKnock || currentPlayer.knockedAgainst || currentPlayer.ginAgainst  ? (
           <h3>Cannot Act</h3>
           ) : (
           <div>  
