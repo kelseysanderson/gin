@@ -9,7 +9,6 @@ import "./Game.css"
 const socket = io("localhost:3002", { transports: ["websocket"] })
   // document.body.style.background = "white";
 
-
 //DECK BUILDER
 class Deck {
   constructor() {
@@ -41,11 +40,6 @@ function Game() {
   const cookies = new Cookies();
   const {id} = useParams()
   const room_id = id
-
-  const socket = io("localhost:3002", { 
-    transports: ["websocket"],
-    query: {"param": room_id}
-  })
 
   useEffect(() => {
     API.getGame(room_id)
@@ -88,7 +82,7 @@ function Game() {
     console.log('update_state' + room_id)
   }
 
-  socket.once('update_state' + room_id, function(newState){
+  socket.on('update_state' + room_id, function(newState){
     console.log(newState)
     setGameState(newState)
   })
@@ -103,7 +97,7 @@ function Game() {
     socket.emit('update_playerOne', newPlayerOne, room_id)
   }
 
-  socket.once('update_playerOne' + room_id, function(newPlayerOne){
+  socket.on('update_playerOne' + room_id, function(newPlayerOne){
     console.log(newPlayerOne)
     setPlayerOne(newPlayerOne)
   })
@@ -118,7 +112,7 @@ function Game() {
     socket.emit('update_playerTwo', newPlayerTwo, room_id)
   }
 
-  socket.once('update_playerTwo' + room_id, function(newPlayerTwo){
+  socket.on('update_playerTwo' + room_id, function(newPlayerTwo){
     console.log("updated Player 2")
     setPlayerTwo(newPlayerTwo)
   })
