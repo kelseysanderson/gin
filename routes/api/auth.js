@@ -4,15 +4,25 @@ const mongoose = require('mongoose')
 const User = mongoose.model("User")
 const bcrypt = require('bcryptjs')
 
+function isValidPassword(pass) {
+    if (pass.length < 8) {
+        return false
+    }
+        return true
+}
+
 router.post('/signup', (req, res) => {
     const { email, password, } = req.body
     if (!email || !password) {
-        return res.status(422).json({ error: "please add all the fields" })
+        return res.status(422).json({ error: "Please add all the fields" })
     }
     User.findOne({ email: email })
         .then(savedUser => {
             if (savedUser) {
-                return res.status(422).json({ error: "user already exists with that email" })
+                return res.status(422).json({ error: "User already exists with that usernam" })
+            }
+            if (!isValidPassword(password)) {
+                return res.status(422).json({ error: "Invalid password, password must be 8 characters or greater" })
             }
             bcrypt.hash(password, 12)
                 .then(hashedpassword => {
@@ -38,14 +48,14 @@ router.post('/signup', (req, res) => {
 router.post('/login', (req, res) => {
     const { email, password } = req.body
     if (!email || !password) {
-        return res.status(422).json({ error: "please add email or password" })
+        return res.status(422).json({ error: "Please add Username or password" })
     }
     // find user by email entered
     User.findOne({ email: email })
         .then(savedUser => {
             // if no email
             if (!savedUser) {
-                return res.status(422).json({ error: "Invalid Email or password" })
+                return res.status(422).json({ error: "Invalid Username or Password" })
             }
             // otherwise compare password
             bcrypt.compare(password, savedUser.password)
@@ -56,7 +66,7 @@ router.post('/login', (req, res) => {
                     }
                     // does not match anything in database
                     else {
-                        return res.status(422).json({ error: "Invalid Email or password" })
+                        return res.status(422).json({ error: "Invalid Username or password" })
                     }
                 })
                 .catch(err => {

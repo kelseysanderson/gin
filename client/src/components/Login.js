@@ -20,7 +20,7 @@ function Login(props) {
                             <div className="card-body login-body">
                                 <form>
                                     <div className="input-group form-group">
-                                        <input onChange={props.handleInputChange} name="email" type="text" className="form-control " placeholder="email" />
+                                        <input onChange={props.handleInputChange} name="email" type="text" className="form-control " placeholder="username" />
                                     </div>
                                     <div className="input-group form-group">
                                         <input onChange={props.handleInputChange} name="password" type="password" className="form-control" placeholder="password" />
@@ -42,7 +42,7 @@ function Login(props) {
                             <form>
                                 <div className="input-group form-group">
 
-                                    <input type="text" onChange={props.handleInputChange} name="email" className="form-control" placeholder="email" />
+                                    <input type="text" onChange={props.handleInputChange} name="email" className="form-control" placeholder="username" />
                                 </div>
                                 <div className="input-group form-group">
 

@@ -1,0 +1,8 @@
+.stats {
+    min-height:100vh;
+    min-width: 100%;
+    overflow: auto;
+    background-image: url('./cards.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+}

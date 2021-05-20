@@ -31,28 +31,6 @@
     background-repeat: no-repeat;
 }
 
-.logout-button {
-    background:none;
-    border:none;
-    margin:0;
-    padding:0;
-    cursor: pointer;
-    color: white !important;
-    font-size: 45px;
-    font-weight: bold;
-}
-
-.logout-button:hover {
-    background:none;
-    border:none;
-    margin:0;
-    padding:0;
-    cursor: pointer;
-    color: rgb(211, 209, 209) !important;
-    font-size: 35px;
-    font-weight: bold;
-}
-
 .login-header {
     height: 100px;
 }
@@ -110,12 +88,4 @@
 .login_btn:hover{
 color: black;
 background-color: white;
-}
-
-h1, h3 {
-    color:white;
-}
-
-div.links, p {
-    color:white
 }

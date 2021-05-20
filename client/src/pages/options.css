@@ -4,7 +4,7 @@
     justify-content:space-between;
     flex-wrap: wrap;
     margin-top: 50px;
-    margin-bottom: 100px;
+    margin-bottom: 50px;
     padding-bottom: 30px;
     font-size: 75px;
     letter-spacing: 8px;
@@ -33,47 +33,65 @@
 .active-games {
     color: whitesmoke;
     text-align:center;
-    font-size: 45px;
+    font-size: 40px;
 }
 .logout-button {
-    padding-top:33px;
-    /* pointer-events: none; */
-    padding-right: 50px;
-}
-.rules-text {
-    background-color: rgba(14, 14, 23, 0.9) !important;
-    color:white;
-    padding:50px;
-    font-size: 18px;
-}
-#create-game-btn{
-    padding: 15px;
-    border: 5px solid rgb(40, 5, 5);
-    background-color: rgb(68, 10, 10) ;
-    color:white;
-    border-radius: 10px ;
-    font-size: 30px;
-    margin-bottom: 30px;
-}
-#create-game-btn:hover{
-    padding: 15px;
-    border: 5px solid rgb(40, 5, 5);
-    background-color: whitesmoke ;
-    color:rgb(90, 16, 16) ;
-    border-radius: 10px ;
-    font-size: 30px;
-    margin-bottom: 30px;
-}
-#refresh-btn {
-    padding: 10px;
     background:none;
     border:none;
-    color:white;
+    margin:0;
+    padding:0;
+    cursor: pointer;
+    color: white !important;
+    font-size: 45px;
+    font-weight: bold;
+    padding-top: 40px;
+    padding-right: 50px;
+}
+
+
+.rules-text {
+    background-color: rgba(33, 33, 36, 0.95) !important;
+    color:whitesmoke;
+    padding:50px;
+    font-size: 20px;
+    margin-top: 30px;
+    margin-bottom: 100px;
+    /* max-height: 700px !important; */
+}
+#create-game-btn, #view-stats-btn {
+    padding: 10px !important;
+    border: 5px solid rgb(65, 9, 9) !important;
+    background-color: rgb(66, 10, 10) !important;
+    color:whitesmoke;
+    border-radius: 13px !important;
+    font-size: 20px !important;
+}
+#create-game-btn:hover, #view-stats-btn:hover{
+    border: 5px solid rgb(66, 11, 11) !important;
+    background-color: rgb(100, 19, 19) !important;
+    color:whitesmoke ;
+    border-radius: 16px !important;
+
+}
+
+#view-stats-btn{ 
+    margin-left: 20px;
+}
+
+.active-games-refresh{
+    display:flex;
+    justify-content: center;
+    align-items:center;
+    margin-bottom: 25px;
+    padding-top:20px;
+}
+#refresh-btn {
+    /* padding: 10px; */
+    background:none;
+    border:none;
+    color:whitesmoke;
     font-size: 33px;
-    width: 60px;
-    border-radius: 20px;
     margin-left: 15px;
-    margin-bottom: 50px;
 }
 .rules-header {
     text-align: center;
@@ -87,28 +105,33 @@
     padding-top: 20px;
     padding-bottom: 30px;
 }
+
 td {
     text-align:center;
 }
 .table-header-text {
+    background-color: rgb(21, 21, 22) !important;
     text-align:center;
-    font-size: 20px;
+    font-size: 23px;
     padding:18px !important;
+    color: rgb(235, 235, 235);
 }
 .join-game-btn {
-    padding: 5px;
-    font-weight: bold;
-    letter-spacing: 2px;
-    border: 2px solid rgb(40, 5, 5);
-    background-color: rgb(68, 10, 10) ;
-    color:white;
-    border-radius: 10px ;
+    padding: 8px;
+    letter-spacing: 4px;
+    border: 3px solid rgb(40, 5, 5) !important;
+    background-color: rgb(68, 10, 10) !important;
+    color:whitesmoke;
+    border-radius: 13px;
+}
+.table-responsive{
+    max-height: 700px !important;
 }
 .join-game-btn:hover {
-    padding: 5px;
-    font-weight: bold;
-    border: 2px solid rgb(40, 5, 5);
-    background-color: whitesmoke ;
-    color:rgb(59, 11, 11) ;
-    border-radius: 10px ;
+    padding: 8px;
+    letter-spacing: 4px;
+    border: 3px solid rgb(66, 11, 11) !important;
+    background-color: rgb(100, 19, 19) !important;
+    color:whitesmoke;
+    border-radius: 16px ;
 }
