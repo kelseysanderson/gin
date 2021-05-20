@@ -6,8 +6,12 @@ import API from "../utils/API";
 import "./Game.css"
 
 
-const socket = io("localhost:3002", { transports: ["websocket"] })
-  // document.body.style.background = "white";
+const socket = io(
+  "localhost:3002", 
+  // "https://floating-ravine-14544.herokuapp.com/",
+  { transports: ["websocket"] }
+  )
+
 
 //DECK BUILDER
 class Deck {
@@ -672,7 +676,6 @@ function Game() {
             finalResult: `Player Two Scored ${gameState.p1Score - dataScore}`,
             finalScore: gameState.p1Score - dataScore,
             winner: playerTwoId,
-
             ended: true
           }) 
         } else if (dataScore - gameState.p1Score === 0) {
@@ -695,18 +698,40 @@ function Game() {
   } 
 
   function saveAndReturn() {
-    API.updateGame(room_id, {
-      score: gameState.finalResult,
-      isActiveGame: false
-    }).then(() =>
-    // use const for id instead of cookie.
-    // need api to update player (wins/losses)
-      window.location.replace('/options/' + playerOneId)
-    )
+    if (gameState.winner === playerOneId) {
+      API.updateGame(room_id, {
+        score: gameState.finalResult,
+        isActiveGame: false
+      }).then(() =>
+        API.updateUser(playerOneId, {
+          $push: { history: room_id },
+          $inc: { numberOfWins: 1}
+        }).then(() =>
+          API.updateUser(playerTwoId, {
+            $push: { history: room_id },
+            $inc: { numberOfLosses: 1 }
+          }).then(() => window.location.replace('/options/' + playerOneId)) 
+        )
+      )
+    } else {
+      API.updateGame(room_id, {
+        score: gameState.finalResult,
+        isActiveGame: false
+      }).then(() =>
+        API.updateUser(playerOneId, {
+          $push: { history: room_id },
+          $inc: { numberOfLosses: 1}
+        }).then(() =>
+          API.updateUser(playerTwoId, {
+            $push: { history: room_id },
+            $inc: { numberOfWins: 1 }
+          }).then(() => window.location.replace('/options/' + playerOneId)) 
+        )
+      )
+    }
   }
 
   function returnHome() {
-    // use const for id instead of cookie.
     window.location.replace('/options/' + playerTwoId)
   }
 

@@ -20,14 +20,16 @@ var GameSchema = new Schema({
         default: null,
         ref: 'User'
     },
+    playerTwoName: {
+        type: String,
+        default: null,
+        ref: 'User'
+    },
     score: {
         type: String,
         required: false,
         default: 0
     },
-    // socketId: {
-    //     type: Number,
-    // },
     isActiveGame: {
         type: Boolean,
         default: false,
