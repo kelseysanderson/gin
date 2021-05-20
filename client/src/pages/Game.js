@@ -92,6 +92,7 @@ function Game() {
   socket.on('update_state' + room_id, function(newState){
     console.log(newState)
     setGameState(newState)
+    socket.off('update_state' + room_id)
   })
 
   //PLAYER ONE CARDS STATE
@@ -107,6 +108,7 @@ function Game() {
   socket.on('update_playerOne' + room_id, function(newPlayerOne){
     console.log(newPlayerOne)
     setPlayerOne(newPlayerOne)
+    socket.off('update_playerOne' + room_id)
   })
 
   //PLAYER TWO CARDS STATE
@@ -122,6 +124,7 @@ function Game() {
   socket.on('update_playerTwo' + room_id, function(newPlayerTwo){
     console.log("updated Player 2")
     setPlayerTwo(newPlayerTwo)
+    socket.off('update_playerTwo' + room_id)
   })
 
   function onDisconnect() {
@@ -724,7 +727,7 @@ function Game() {
         <div className="game-content">
           <h2 className="current-player">Current Player: {playerState}</h2>
 
-          {playerState === 1 && currentPlayer.hand.length < 10 ? (
+          {playerState === 1 && currentPlayer.hand.length < 10 && !gameState.p1HasKnock && !gameState.p1HasGin ? (
             <button className="deal-cards" onClick={dealCards}>Deal</button>
           ): (<></>)}
 
@@ -753,8 +756,17 @@ function Game() {
             {currentPlayer.hand.map((card, index) => (
              <div className="playing-card-bg"> 
               <div className="playing-card">
-                <p className="suit-number">{card.display}</p>
-                <p className="suit-number">{card.suit}</p>
+                {card.suit === '\u2665' || card.suit === '\u2666' ? (
+                  <div>
+                    <p className="suit-number red-suit">{card.display}</p>
+                    <p className="suit-number red-suit">{card.suit}</p>
+                  </div>
+                ) : (
+                  <div>
+                    <p className="suit-number ">{card.display}</p>
+                    <p className="suit-number">{card.suit}</p>
+                  </div>
+                )}
                 <div className="sort-buttons">
                   <button value={index} onClick={moveLeft} className="sort-button">
                     {"<"}
@@ -801,9 +813,17 @@ function Game() {
                       {set.map((card, cardIndex) => (
                         <div className="playing-card-bg"> 
                         <div className="playing-card">
-                          <p className="suit-number">{card.display}</p>
-                          <p className="suit-number">{card.suit}</p>
-
+                        {card.suit === '\u2665' || card.suit === '\u2666' ? (
+                          <div>
+                            <p className="suit-number red-suit">{card.display}</p>
+                            <p className="suit-number red-suit">{card.suit}</p>
+                          </div>
+                        ) : (
+                          <div>
+                            <p className="suit-number ">{card.display}</p>
+                            <p className="suit-number">{card.suit}</p>
+                          </div>
+                        )}
                           <div className="sort-buttons">
                             <button name={setIndex} value={cardIndex} onClick={setMoveLeft} className="sort-button">
                               {"<"}
@@ -838,8 +858,17 @@ function Game() {
                 <div className="hand">
                   <div className="playing-card-bg"> 
                     <div className="playing-card">
-                      <p className="suit-number">{gameState.discard[0].display}</p> 
-                      <p className="suit-number">{gameState.discard[0].suit}</p>
+                      {gameState.discard[0].suit === '\u2665' || gameState.discard[0].suit === '\u2666' ? (
+                        <div>
+                          <p className="suit-number red-suit">{gameState.discard[0].display}</p>
+                          <p className="suit-number red-suit">{gameState.discard[0].suit}</p>
+                        </div>
+                      ) : (
+                        <div>
+                          <p className="suit-number">{gameState.discard[0].display}</p>
+                          <p className="suit-number">{gameState.discard[0].suit}</p>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>  
