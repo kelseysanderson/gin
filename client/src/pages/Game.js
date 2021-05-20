@@ -39,19 +39,21 @@ class Deck {
   }
 }
 
+let playerOneId;
+let playerTwoId;  
+
 //GAME FUNCTION
 function Game() {
   const cookies = new Cookies();
   const {id} = useParams()
   const room_id = id
-  let playerOneId;
-  let playerTwoId;  
+
 
   useEffect(() => {
     API.getGame(room_id)
     .then(res =>{
-      playerOneId= res.data.playerOne
-      playerTwoId= res.data.playerTwo
+      playerOneId = res.data.playerOne
+      playerTwoId = res.data.playerTwo
       console.log(playerOneId, playerTwoId)
 
       if (res.data.playerOne === cookies.get('user').id) {
@@ -59,6 +61,9 @@ function Game() {
       } 
       if (res.data.playerTwo === cookies.get('user').id) {
         setPlayerState(2)
+        updateState({...gameState,
+          readyToDeal: true
+        })
       }
     })
   }, [])
@@ -70,6 +75,7 @@ function Game() {
     ended: false,
     finalScore: "",
     winner: "",
+    readyToDeal: false,
 
     p1Turn: false,
     p1MustDiscard: false,
@@ -135,10 +141,10 @@ function Game() {
   //CURRENT PLAYER
   const [playerState, setPlayerState] = useState(1)
   // TESTING PLAYER SWITCH
-  function switchPlayer() {
-    if (playerState === 1){setPlayerState(2)}
-    else {setPlayerState(1)}
-  }
+  // function switchPlayer() {
+  //   if (playerState === 1){setPlayerState(2)}
+  //   else {setPlayerState(1)}
+  // }
 
   var currentPlayer 
   if (playerState === 1) {
@@ -190,7 +196,8 @@ function Game() {
 
     updateState({...gameState,
       deck: newDeck.deck,
-      p2Turn: true
+      p2Turn: true,
+      readyToDeal: false
     })  
     updatePlayerOne({...playerOne,
       hand: playerOneDealtHand,
@@ -710,7 +717,7 @@ function Game() {
           API.updateUser(playerTwoId, {
             $push: { history: room_id },
             $inc: { numberOfLosses: 1 }
-          }).then(() => window.location.replace('/options/' + playerOneId)) 
+          }).then(() => window.location.replace('/options/' + playerTwoId)) 
         )
       )
     } else {
@@ -725,14 +732,14 @@ function Game() {
           API.updateUser(playerTwoId, {
             $push: { history: room_id },
             $inc: { numberOfWins: 1 }
-          }).then(() => window.location.replace('/options/' + playerOneId)) 
+          }).then(() => window.location.replace('/options/' + playerTwoId)) 
         )
       )
     }
   }
 
   function returnHome() {
-    window.location.replace('/options/' + playerTwoId)
+    window.location.replace('/options/' + playerOneId)
   }
 
   //DISPLAY
@@ -742,14 +749,14 @@ function Game() {
         <div className="game-content">
           <h2>Game Over</h2>
           <p>{gameState.finalResult}</p>
-          {playerState === 1 ? (<button onClick={saveAndReturn}>Save Game and Return Home</button>) : (<button onClick={returnHome}>Return Home</button>) }
+          {playerState === 1 ? (<button onClick={returnHome}>Return Home</button>) : (<button onClick={saveAndReturn}>Save Game and Return Home</button>) }
           
         </div>
       ) : (
         <div className="game-content">
           <h2 className="current-player">Current Player: {playerState}</h2>
 
-          {playerState === 1 && currentPlayer.hand.length < 10 && !gameState.p1HasKnock && !gameState.p1HasGin ? (
+          {playerState === 1 && gameState.readyToDeal ? (
             <button className="deal-cards" onClick={dealCards}>Deal</button>
           ): (<></>)}
 
@@ -768,7 +775,7 @@ function Game() {
           </div>
           
           {/*TESTING SWITCH PLAYER BUTTON */}
-          <button className="switch-player" onClick={switchPlayer}>Switch Player</button>
+          {/* <button className="switch-player" onClick={switchPlayer}>Switch Player</button> */}
 
           {/* HAND */}
           
