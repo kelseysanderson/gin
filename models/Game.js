@@ -20,12 +20,11 @@ var GameSchema = new Schema({
         default: null,
         ref: 'User'
     },
-    Score: {
+    score: {
         type: String,
         required: false,
         default: 0
     },
-
     // socketId: {
     //     type: Number,
     // },

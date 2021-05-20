@@ -16,6 +16,16 @@ var UserSchema = new Schema({
   history: {
     type: [Schema.Types.ObjectId],
     ref: 'Game',
+  },
+  numberOfWins: {
+    type: Number,
+    required:true,
+    default: 0
+  },
+  numberOfLosses: {
+    type: Number,
+    required: true,
+    default: 0
   }
 });
 
