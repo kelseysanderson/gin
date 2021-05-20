@@ -10,8 +10,7 @@ const socket = io(
   "localhost:3002", 
   // "https://floating-ravine-14544.herokuapp.com/",
   { transports: ["websocket"] }
-  )
-
+)
 
 //DECK BUILDER
 class Deck {
@@ -25,10 +24,10 @@ class Deck {
    suits.forEach(suitVal => {
      numbers.forEach(numberVal => {
        let displayVal = numberVal
-       if (numberVal === 1) {displayVal = "ace"}
-       if (numberVal === 11) {displayVal = "jack"}
-       if (numberVal === 12) {displayVal = "queen"}
-       if (numberVal === 13) {displayVal = "king"}
+       if (numberVal === 1) {displayVal = "A"}
+       if (numberVal === 11) {displayVal = "J"}
+       if (numberVal === 12) {displayVal = "Q"}
+       if (numberVal === 13) {displayVal = "K"}
        this.deck.push({
          suit: suitVal,
          number: numberVal,
