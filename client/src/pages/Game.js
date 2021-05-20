@@ -7,10 +7,11 @@ import "./Game.css"
 
 
 const socket = io(
-  // "localhost:3002", 
-  "https://floating-ravine-14544.herokuapp.com/",
-  { transports: ["websocket"] })
-  // document.body.style.background = "white";
+  "localhost:3002", 
+  // "https://floating-ravine-14544.herokuapp.com/",
+  { transports: ["websocket"] }
+  )
+
 
 //DECK BUILDER
 class Deck {
