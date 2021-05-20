@@ -41,15 +41,21 @@ function Game() {
   const cookies = new Cookies();
   const {id} = useParams()
   const room_id = id
-
+  let playerOneId;
+  let playerTwoId;
   const socket = io("localhost:3002", { 
     transports: ["websocket"],
     query: {"param": room_id}
   })
 
+  
   useEffect(() => {
     API.getGame(room_id)
     .then(res =>{
+      playerOneId= res.data.playerOne
+      playerTwoId= res.data.playerTwo
+      console.log(playerOneId, playerTwoId)
+
       if (res.data.playerOne === cookies.get('user').id) {
         setPlayerState(1)
       } 
@@ -64,7 +70,8 @@ function Game() {
     deck: [],
     discard : [],
     ended: false,
-    finalResult: "",
+    finalScore: "",
+    winner: "",
 
     p1Turn: false,
     p1MustDiscard: false,
@@ -630,22 +637,30 @@ function Game() {
       if (gameState.p2Score === 0) {
         updateState({...gameState,
           finalResult: `Player Two Scored ${dataScore + 25}`,
+          finalScore: dataScore + 25,
+          winner: playerTwoId,
           ended: true
         }) 
       } else if (gameState.p2Score !== 0) {
         if (dataScore - gameState.p2Score < 0){
           updateState({...gameState,
             finalResult: `Player One Scored ${gameState.p2Score - dataScore}`,
+            finalScore: gameState.p2Score - dataScore,
+            winner: playerOneId,
             ended: true
           }) 
         } else if (dataScore - gameState.p2Score === 0) {
           updateState({...gameState,
             finalResult: `No Points Scored`,
+            finalScore: 0,
+            winner: "none",
             ended: true
           }) 
         } else {
           updateState({...gameState,
             finalResult: `Player Two Scored ${dataScore - gameState.p2score}`,
+            finalScore: dataScore - gameState.p2score,
+            winner: playerTwoId,
             ended: true
           }) 
         }
@@ -654,22 +669,30 @@ function Game() {
       if (gameState.p1Score === 0) {
         updateState({...gameState,
           finalResult: `Player One Scored ${dataScore + 25}`,
+          finalScore: dataScore + 25,
+          winner: playerOneId,
           ended: true
         }) 
       } else if (gameState.p1Score !== 0) {
         if (dataScore - gameState.p1Score < 0){
           updateState({...gameState,
             finalResult: `Player Two Scored ${gameState.p1score - dataScore}`,
+            finalScore: gameState.p1score - dataScore,
+            winner: playerTwoId,
             ended: true
           }) 
         } else if (dataScore - gameState.p1Score === 0) {
           updateState({...gameState,
             finalResult: `No Points Scored`,
+            finalScore: 0,
+            winner: "none",
             ended: true
           }) 
         } else {
           updateState({...gameState,
             finalResult: `Player One Scored ${dataScore - gameState.p1Score}`,
+            finalScore: dataScore - gameState.p1Score,
+            winner: playerOneId,
             ended: true
           }) 
         }
@@ -682,12 +705,15 @@ function Game() {
       score: gameState.finalResult,
       isActiveGame: false
     }).then(() =>
-      window.location.replace('/options/' + cookies.get('user').id)
+    // use const for id instead of cookie.
+    // need api to update player (wins/losses)
+      window.location.replace('/options/' + playerOneId)
     )
   }
 
   function returnHome() {
-    window.location.replace('/options/' + cookies.get('user').id)
+    // use const for id instead of cookie.
+    window.location.replace('/options/' + playerTwoId)
   }
 
   //DISPLAY

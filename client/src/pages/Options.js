@@ -5,6 +5,7 @@ import API from "../utils/API";
 import ActiveGames from "../components/ActiveGames"
 import Cookies from 'universal-cookie';
 import './options.css'
+
 function Options() {
   const [games, setGames] = useState([]);
   const cookies = new Cookies();
@@ -12,16 +13,22 @@ function Options() {
   // const username = name.match(/^([^@]*)@/)[1];
   // const username = regexUsername.charAt(0).toUpperCase() + regexUsername.slice(1);
   // document.body.style.background = "red";
+
   useEffect(() => {
     loadGames()
-  }, [])
+  }, []);
+
   function loadGames() {
     API.getActiveGames()
-      .then(res =>
+      .then(res =>{
+        console.log(res.data)
         setGames(res.data)
+      }
+        
       )
       .catch(err => console.log(err));
   };
+
   function handleJoin(e) {
     console.log(e.target.value)
     API.getGame(e.target.value)
@@ -39,6 +46,7 @@ function Options() {
         }
       })
   }
+
   function handleCreate() {
     API.saveGame({
       playerOne: cookies.get('user').id,
@@ -49,15 +57,22 @@ function Options() {
       window.location.replace('/game/' + res.data._id)
     )
   };
+
+  function handleViewStats() {
+    window.location.replace('/stats/' + cookies.get('user').id)
+  }
+
   function handleRefresh(event) {
     event.preventDefault();
     window.location.reload()
   }
+
   function handleLogout(event) {
     event.preventDefault();
     cookies.remove('user')
     window.location.replace('/home');
   }
+
   return (
     <div className="options">
       <div>
@@ -69,6 +84,7 @@ function Options() {
           <div className="row justify-content-around">
             <div className="col-12 col-md-5">
               <button id="create-game-btn" onClick={handleCreate}>+ Create New Game</button>
+              <button id="view-stats-btn" onClick={handleViewStats}>View Stats</button>
               <div className="rules-text">
               <h3 className="rules-header">How to Play</h3>
               <div className="how-to-play">
