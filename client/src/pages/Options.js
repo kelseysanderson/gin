@@ -38,6 +38,7 @@ function Options() {
           console.log("HEReE", res.data)
           API.updateGame(res.data._id, {
             playerTwo: cookies.get('user').id,
+            playerTwoName: cookies.get('user').email,
             needPlayerTwo: false
           }).then(res =>
             window.location.replace('/game/' + res.data._id)
@@ -53,12 +54,6 @@ function Options() {
       isActiveGame: true,
       needPlayerTwo: true
     })
-    // .then(res =>{
-    //   API.updateUser(res.data.playerOne, {
-    //     history: [
-    //       res.data._id
-    //     ]
-    //   })} )
       .then(res =>
         window.location.replace('/game/' + res.data._id) 
       );
