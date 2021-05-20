@@ -146,6 +146,7 @@
     color: black;
 }
 .suit-number {
+    color: black;
     font-size: 2rem;
     font-weight: bold;
 }
@@ -184,7 +185,7 @@
 }
 
 .playing-card>p {
-    color: black;
+    /* color: black; */
 }
 
 .playing-card {
@@ -244,5 +245,8 @@
     border-radius: 15%;
     background-color: #cacaca;
     color: black;
+}
+.red-suit {
+    color: #eb0c2a;
 }
 

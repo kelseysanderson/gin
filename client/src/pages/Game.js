@@ -727,8 +727,17 @@ function Game() {
             {currentPlayer.hand.map((card, index) => (
              <div className="playing-card-bg"> 
               <div className="playing-card">
-                <p className="suit-number">{card.display}</p>
-                <p className="suit-number">{card.suit}</p>
+                {card.suit === '\u2665' || card.suit === '\u2666' ? (
+                  <div>
+                    <p className="suit-number red-suit">{card.display}</p>
+                    <p className="suit-number red-suit">{card.suit}</p>
+                  </div>
+                ) : (
+                  <div>
+                    <p className="suit-number ">{card.display}</p>
+                    <p className="suit-number">{card.suit}</p>
+                  </div>
+                )}
                 <div className="sort-buttons">
                   <button value={index} onClick={moveLeft} className="sort-button">
                     {"<"}
@@ -812,8 +821,17 @@ function Game() {
                 <div className="hand">
                   <div className="playing-card-bg"> 
                     <div className="playing-card">
-                      <p className="suit-number">{gameState.discard[0].display}</p> 
-                      <p className="suit-number">{gameState.discard[0].suit}</p>
+                      {gameState.discard[0].suit === '\u2665' || gameState.discard[0].suit === '\u2666' ? (
+                        <div>
+                          <p className="suit-number red-suit">{gameState.discard[0].display}</p>
+                          <p className="suit-number red-suit">{gameState.discard[0].suit}</p>
+                        </div>
+                      ) : (
+                        <div>
+                          <p className="suit-number">{gameState.discard[0].display}</p>
+                          <p className="suit-number">{gameState.discard[0].suit}</p>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>  
