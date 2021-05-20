@@ -20,11 +20,10 @@ function Options() {
 
   function loadGames() {
     API.getActiveGames()
-      .then(res =>{
-        console.log(res.data)
+      .then(res => {
         setGames(res.data)
       }
-        
+
       )
       .catch(err => console.log(err));
   };
@@ -53,9 +52,17 @@ function Options() {
       playerOneName: cookies.get('user').email,
       isActiveGame: true,
       needPlayerTwo: true
-    }).then(res =>
-      window.location.replace('/game/' + res.data._id)
-    )
+    })
+    // .then(res =>{
+    //   console.log(cookies.get('user').id , `"${res.data._id}"`)
+    //   API.updateUser(cookies.get('user').id, {
+    //     history: [
+    //       `"${res.data._id}"`
+    //     ]
+    //   })} )
+      .then(res =>
+        window.location.replace('/game/' + res.data._id) 
+      );
   };
 
   function handleViewStats() {
@@ -86,16 +93,16 @@ function Options() {
               <button id="create-game-btn" onClick={handleCreate}>+ Create New Game</button>
               <button id="view-stats-btn" onClick={handleViewStats}>View Stats</button>
               <div className="rules-text">
-              <h3 className="rules-header">How to Play</h3>
-              <div className="how-to-play">
-              <p >The object of the game is to collect a hand where most or all of the cards can be combined into sets and runs and the point value of the remaining unmatched cards is low.
-              a run or sequence consists of three or more cards of the same suit in consecutive order, such as &clubs;4, &clubs;5, &clubs;6 or &hearts;7, &hearts;8, &hearts;9, &hearts;10, &hearts;J.
+                <h3 className="rules-header">How to Play</h3>
+                <div className="how-to-play">
+                  <p >The object of the game is to collect a hand where most or all of the cards can be combined into sets and runs and the point value of the remaining unmatched cards is low.
+                  a run or sequence consists of three or more cards of the same suit in consecutive order, such as &clubs;4, &clubs;5, &clubs;6 or &hearts;7, &hearts;8, &hearts;9, &hearts;10, &hearts;J.
               a set or group is three or four cards of the same rank, such as &diams;7, &hearts;7, &spades;7.</p>
-              <p >A card can belong to only one combination at a time - you cannot use the same card as part of both a set of equal cards and a sequence of consecutive cards at the same time. 
-              For example if you have &diams;7, &spades;7, &hearts;7, &hearts;8, &hearts;9 you can use the &hearts;7 either to make a set of three sevens or a &hearts; sequence, but not both at once. To form a set and a sequence you would need a sixth card - either a &clubs;7 or a  &hearts;10.
-              Note that in Gin Rummy the Ace is always low. A-2-3 is a valid sequence but A-K-Q is not.
+                  <p >A card can belong to only one combination at a time - you cannot use the same card as part of both a set of equal cards and a sequence of consecutive cards at the same time.
+                  For example if you have &diams;7, &spades;7, &hearts;7, &hearts;8, &hearts;9 you can use the &hearts;7 either to make a set of three sevens or a &hearts; sequence, but not both at once. To form a set and a sequence you would need a sixth card - either a &clubs;7 or a  &hearts;10.
+                  Note that in Gin Rummy the Ace is always low. A-2-3 is a valid sequence but A-K-Q is not.
               </p>
-              </div>
+                </div>
               </div>
             </div>
             <div className="col-12 col-md-4">
