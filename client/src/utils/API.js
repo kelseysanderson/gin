@@ -11,7 +11,6 @@ export default {
   },
 
   updateUser: function (id, userData) {
-    console.log("HERE","/api/game/" + id )
     return axios.put("/api/users/" + id, userData);
   },
   

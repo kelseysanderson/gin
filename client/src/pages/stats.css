@@ -6,3 +6,34 @@
     background-size: cover;
     background-repeat: no-repeat;
 }
+
+table {
+    counter-reset: tableCount;     
+}
+
+.counterCell:before {              
+    content: counter(tableCount); 
+    counter-increment: tableCount; 
+}
+
+#back-to-options{
+    font-size: 35px;
+    align-self:center;
+    background-color: rgba(121, 121, 121, 0.527);
+    margin-right: 50px;
+    margin-top: 30px;
+    border-radius: 8px;
+    color: white;
+    padding: 5px 20px 5px 20px;
+}
+
+#back-to-options:hover{
+    background-color: rgba(179, 179, 179, 0.527);
+    border-radius: 10px;
+    color: white;
+}
+
+#no-history {
+    text-align:center;
+    font-family: 'Trocchi'
+}

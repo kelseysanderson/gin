@@ -7,8 +7,8 @@ import "./Game.css"
 
 
 const socket = io(
-  // "localhost:3001", 
-  "https://floating-ravine-14544.herokuapp.com/",
+  "localhost:3001", 
+  // "https://floating-ravine-14544.herokuapp.com/",
   { transports: ["websocket"] }
 )
 

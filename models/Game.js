@@ -3,7 +3,6 @@ const Schema = mongoose.Schema;
 
 // room
 var GameSchema = new Schema({
-    // menu, reference to users, don't start until both users are not null
     playerOne: {
         type: Schema.Types.ObjectId,
         required: true,
