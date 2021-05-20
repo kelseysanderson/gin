@@ -4,10 +4,10 @@ function ActiveGames(props) {
   return (
     <tbody>
       <tr>
-        <td>{props.id}</td>
-        <td>{props.id}</td>
-        <td>TBD</td>
-        <td>TBD</td>
+        <td className="counterCell"></td>
+        <td>{props.playerOne}</td>
+        <td>{props.playerTwo}</td>
+        <td>{props.score}</td>
       </tr>
     </tbody>
 

@@ -35,20 +35,23 @@
     text-align:center;
     font-size: 40px;
 }
-.logout-button {
-    background:none;
-    border:none;
-    margin:0;
-    padding:0;
-    cursor: pointer;
-    color: white !important;
-    font-size: 45px;
-    font-weight: bold;
-    padding-top: 40px;
-    padding-right: 50px;
+
+.logout-button{
+    font-size: 35px;
+    align-self:center;
+    background-color: rgba(121, 121, 121, 0.527);
+    margin-right: 50px;
+    margin-top: 30px;
+    border-radius: 8px;
+    color: white;
+    padding: 5px 20px 5px 20px;
 }
 
-
+.logout-button:hover{
+    background-color: rgba(179, 179, 179, 0.527);
+    border-radius: 10px;
+    color: white;
+}
 .rules-text {
     background-color: rgba(33, 33, 36, 0.95) !important;
     color:whitesmoke;

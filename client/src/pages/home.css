@@ -86,6 +86,10 @@
 }
     
 .login_btn:hover{
-color: black;
-background-color: white;
+    color: black;
+    background-color: white;
+}
+
+h1, h2, h3, p{
+    color:rgb(218, 218, 218);
 }
