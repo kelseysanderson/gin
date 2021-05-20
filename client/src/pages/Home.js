@@ -45,7 +45,6 @@ function Home() {
       email: formObject.email,
       password: formObject.password,
     }).then(res => {
-      console.log("HERE TOO")
       cookies.set('user',
         JSON.stringify({
           email: formObject.email,

@@ -16,9 +16,10 @@ module.exports = {
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
-  // findAndUpdate: function(req, res) {
+  // findOneAndUpdate: function(req, res) {
+  //   console.log("HERE CONTROLLER")
   //   db.User
-  //     .updateMany({_id: req.params.id[1]}, {_id: req.params.id[2]} , req.body)
+  //     .findOneAndUpdate({_id: req.params.id} , req.body)
   //     .then(dbModel => res.json(dbModel))
   //     .catch(err => res.status(422).json(err));
   // },

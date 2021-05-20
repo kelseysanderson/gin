@@ -54,10 +54,9 @@ function Options() {
       needPlayerTwo: true
     })
     // .then(res =>{
-    //   console.log(cookies.get('user').id , `"${res.data._id}"`)
-    //   API.updateUser(cookies.get('user').id, {
+    //   API.updateUser(res.data.playerOne, {
     //     history: [
-    //       `"${res.data._id}"`
+    //       res.data._id
     //     ]
     //   })} )
       .then(res =>
@@ -85,7 +84,7 @@ function Options() {
       <div>
         <header className="options-header">
           <h1 className="options-text">Welcome, {username} </h1>
-          <button className="logout-button" onClick={handleLogout}  >Logout</button>
+          <button className="logout-button" onClick={handleLogout}>Logout</button>
         </header>
         <div className="container-fluid">
           <div className="row justify-content-around">
@@ -106,15 +105,19 @@ function Options() {
               </div>
             </div>
             <div className="col-12 col-md-4">
-              <h2 className="active-games">Active Games<button id="refresh-btn" onClick={handleRefresh}>&#10227;</button>
-              </h2>
-              <Table striped bordered hover variant="dark">
+              <div className="active-games-refresh">
+              <h2 className="active-games">Active Games</h2>
+              <button id="refresh-btn" onClick={handleRefresh}>&#10227;</button>
+              </div>
+              <div className="table-responsive">
+              <Table  striped bordered hover variant="dark">
                 <thead>
                   <tr>
-                    <th className="table-header-text">Player</th>
-                    <th className="table-header-text">Join</th>
+                    <th className="table-header-text">Creator</th>
+                    <th className="table-header-text">Join Game</th>
                   </tr>
                 </thead>
+                <tbody>
                 {games.map(game => (
                   <ActiveGames
                     key={game._id}
@@ -124,7 +127,9 @@ function Options() {
                     needPlayerTwo={game.needPlayerTwo ? "true" : ""}
                   />
                 ))}
+                </tbody>
               </Table>
+              </div>
             </div>
           </div>
         </div>

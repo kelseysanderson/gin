@@ -10,10 +10,11 @@ export default {
     return axios.get("/api/users/" + id);
   },
 
-  // updateGame: function (id, gameData) {
+  // updateUser: function (id, userData) {
   //   // console.log("HERE","/api/game/" + id )
-  //   return axios.put("/api/game/" + id, gameData);
+  //   return axios.put("/api/users/" + id, userData);
   // },
+  
   // Deletes the User with the given id, unregister?
   deleteUser: function (id) {
     return axios.delete("/api/users/" + id);

@@ -4,13 +4,10 @@ import "./activegames.css"
 
 function ActiveGames(props) {
   return (
-    <tbody>
       <tr>
         <td>{props.name}</td>
-        <td>{props.needPlayerTwo === "true" ? <button value={props.id} onClick={props.handleJoin} >Join Game</button> : <p>In Game</p>}</td>
+        <td>{props.needPlayerTwo === "true" ? <button value={props.id} onClick={props.handleJoin} className="join-game-btn" >Join Game</button> : <p>Game in Session</p>}</td>
       </tr>
-    </tbody>
-
   )
 }
 
