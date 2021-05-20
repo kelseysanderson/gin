@@ -6,7 +6,10 @@ import API from "../utils/API";
 import "./Game.css"
 
 
-const socket = io("localhost:3002", { transports: ["websocket"] })
+const socket = io(
+  // "localhost:3002", 
+  "https://floating-ravine-14544.herokuapp.com/",
+  { transports: ["websocket"] })
   // document.body.style.background = "white";
 
 //DECK BUILDER

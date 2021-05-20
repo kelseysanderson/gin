@@ -24,7 +24,6 @@ app.listen(PORT, function () {
   console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
 });
 
-
 //Gypsy Sockets
 io.on("connection", function(socket){
   console.log('made socket connection')
