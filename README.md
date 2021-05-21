@@ -25,7 +25,7 @@ Following installation, type `npm start` into the terminal in the newly created 
 ![Screenshot of Game Page](./screenshots/game_page.jpg)
 
 ## URL
-[Live URL to Gin]()
+[Live URL to Gin](https://floating-ravine-14544.herokuapp.com/)
 
 ## Contributors
 * Henry Kariuki [Github](https://github.com/rashidk83) [Email](mailto:kariukihenry83@gmail.com)
