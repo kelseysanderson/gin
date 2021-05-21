@@ -23,13 +23,14 @@ function Home() {
       email: formObject.email,
       password: formObject.password,
     }).then(res => {
+      console.log(res.data.user.savedUser._id)
 
-      // cookies.set('user',
-      //   JSON.stringify({
-      //     email: formObject.email,
-      //     id: res.data.user.savedUser._id,
-      //     isLoggedIn: true
-      //   }))
+      cookies.set('user',
+        JSON.stringify({
+          email: formObject.email,
+          id: res.data.user.savedUser._id,
+          isLoggedIn: true
+        }))
       window.location.replace('/options/' + res.data.user.savedUser._id);
     }).catch(err => {
       if (err.response.data.error)
@@ -45,12 +46,12 @@ function Home() {
       email: formObject.email,
       password: formObject.password,
     }).then(res => {
-      // cookies.set('user',
-      //   JSON.stringify({
-      //     email: formObject.email,
-      //     id: res.data.user.user._id,
-      //     isLoggedIn: true
-      //   }))
+      cookies.set('user',
+        JSON.stringify({
+          email: formObject.email,
+          id: res.data.user.user._id,
+          isLoggedIn: true
+        }))
       window.location.replace('/options/' + res.data.user.user._id);
     }).catch(err => {
       if (err.response.data.error)

@@ -16,7 +16,17 @@ function Options() {
   useEffect(() => {
     loadGames()
     loadUser()
+    // console.log(userId)
+    // setCookie()
   }, []);
+
+  // function setCookie () {
+  //   cookies.set('user',
+  //   JSON.stringify({
+  //     id: userId,
+  //     isLoggedIn: true
+  //   }))
+  // }
 
   function loadUser() {
     API.getUser(userId)
@@ -48,15 +58,8 @@ function Options() {
             playerTwo: userId,
             playerTwoName: user.username,
             needPlayerTwo: false
-          }).then(res => {
-            cookies.set('user',
-              JSON.stringify({
-                id: userId,
-              })
-            ).then(() => 
-              window.location.replace('/game/' + e.target.value)
-            )
-          }
+          }).then(res => 
+            window.location.replace('/game/' + res.data._id)
         )};
       });
   }

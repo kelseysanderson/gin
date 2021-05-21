@@ -54,6 +54,8 @@ function Game() {
       playerOneId = res.data.playerOne
       playerTwoId = res.data.playerTwo
       console.log(playerOneId, playerTwoId)
+      let userID = cookies.get('user').id
+      console.log(userID)
 
       if (res.data.playerOne === cookies.get('user').id) {
         setPlayerState(1)
