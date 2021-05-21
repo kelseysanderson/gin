@@ -48,9 +48,14 @@ function Options() {
             playerTwo: userId,
             playerTwoName: user.username,
             needPlayerTwo: false
-          }).then(res =>
+          }).then(res => {
+            cookies.set('user',
+              JSON.stringify({
+                id: userId,
+              }))
             window.location.replace('/game/' + res.data._id)
-          )};
+          }
+        )};
       });
   }
 
