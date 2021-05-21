@@ -45,8 +45,8 @@ function Options() {
         } else {
           console.log("HEReE", res.data)
           API.updateGame(res.data._id, {
-            playerTwo: cookies.get('user').id,
-            playerTwoName: cookies.get('user').email,
+            playerTwo: userId,
+            playerTwoName: user.username,
             needPlayerTwo: false
           }).then(res =>
             window.location.replace('/game/' + res.data._id)
@@ -56,8 +56,8 @@ function Options() {
 
   function handleCreate() {
     API.saveGame({
-      playerOne: cookies.get('user').id,
-      playerOneName: cookies.get('user').email,
+      playerOne: userId,
+      playerOneName: user.username,
       isActiveGame: true,
       needPlayerTwo: true
     })
