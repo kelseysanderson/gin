@@ -67,7 +67,7 @@ function Options() {
   };
 
   function handleViewStats() {
-    window.location.replace('/stats/' + cookies.get('user').id);
+    window.location.replace('/stats/' + userId);
   }
 
   function handleRefresh(event) {
