@@ -52,8 +52,9 @@ function Options() {
             cookies.set('user',
               JSON.stringify({
                 id: userId,
-              })).then(() => 
-            window.location.replace('/game/' + res.data._id)
+              })
+            ).then(() => 
+              window.location.replace('/game/' + e.target.value)
             )
           }
         )};
